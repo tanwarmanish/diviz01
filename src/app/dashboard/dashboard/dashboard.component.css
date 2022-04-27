@@ -1,0 +1,31 @@
+/* fonts  */
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;500;700&display=swap");
+
+/* pallete */
+/* background  #dfe6e9 */
+/* text #2d3436  */
+/* https://flatuicolors.com/palette/us  */
+
+:root {
+  --background: #dfe6e9;
+  --text: #2d3436;
+  --red: #d63031;
+  --grey: #636e72;
+  --blue: #0984e3;
+}
+
+body {
+  background-color: --var(background);
+}
+
+* {
+  font-family: "Nunito";
+  font-weight: 400;
+  color: --var(text);
+}
+
+.title{
+    font-size:18px;
+    font-weight: 600;
+    color:--var(grey);
+}
