@@ -19,5 +19,16 @@ body {
   color: #2f3640;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.position-panel {
+  position: absolute !important;
+  top: 30px !important;
+}

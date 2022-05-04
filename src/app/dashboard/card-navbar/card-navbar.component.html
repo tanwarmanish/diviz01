@@ -1,17 +1,25 @@
 <p class="heading">
-  <span class="title">Revenue</span>
+  <span class="title">{{ title }}</span>
   <span class="controls">
     <select-dropdown
-      [dataList]="timePeriods"
+      *ngIf="activePeriod"
+      [dataList]="periodsList"
       [selectedValue]="activePeriod"
     ></select-dropdown>
-    <!-- <buttonz
-      class="link-btn"
-      *ngFor="let period of timePeriods"
-      [class.active]="period.key == activePeriod"
-      (click)="selectTimePeriod(period)"
-    >
-      {{ period?.title }}
-    </button> -->
+    <span class="view" *ngIf="iconsArr?.length">
+      <ng-container *ngFor="let icon of iconsArr; let i = index">
+        <span
+          class="icon material-symbols-outlined"
+          [class.active]="activeIcon == icon"
+          (click)="selectIcon(icon)"
+        >
+          {{ iconsObj[icon] }}
+        </span>
+        <mat-divider
+          [vertical]="true"
+          *ngIf="i != 0 && i != iconsArr.length - 1"
+        ></mat-divider>
+      </ng-container>
+    </span>
   </span>
 </p>

@@ -1,4 +1,8 @@
-<mat-select [value]="selectedValue" disableOptionCentering="true">
+<mat-select
+  [value]="selectedValue"
+  disableOptionCentering="true"
+  panelClass="position-panel"
+>
   <mat-option *ngFor="let option of dataList" [value]="option[dataKeys.key]">
     {{ option[dataKeys.value] }}
   </mat-option>

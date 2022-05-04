@@ -1,26 +1,37 @@
 .heading {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 22px 30px;
 }
 .heading .title {
   font-size: 18px;
 }
+.controls {
+  display: flex;
+  align-items: center;
+}
 
-.controls .link-btn {
-  background: none;
-  border: none;
-  padding: 5px 13px;
-  font-size: 12px;
-  font-weight: 500;
-  color: #7e8229;
+.controls .view {
+  display: flex;
+  margin-left: 20px;
+  border-radius: 5px;
+  border: 1px solid rgb(172, 172, 172);
+  overflow: hidden;
+}
+.view .icon {
+  padding: 5px;
   cursor: pointer;
-  border-radius: 8px;
 }
-.controls .link-btn:hover {
-  color: #f64e60;
+
+.icon.active {
+  pointer-events: none;
+  background-color: #f64e60;
+  color: white;
 }
-.controls .link-btn.active {
-  background: #f64e60;
-  color: #fff;
+
+.icon:not(.active):hover {
+  color: rgba(246, 78, 96, 0.8);
 }
+
+
