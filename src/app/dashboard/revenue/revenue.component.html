@@ -1,16 +1,5 @@
-<p class="heading">
-  <span class="title">Revenue</span>
-  <span class="controls">
-    <button
-      class="link-btn"
-      *ngFor="let period of timePeriods"
-      [class.active]="period.key == activePeriod"
-      (click)="selectTimePeriod(period)"
-    >
-      {{ period?.title }}
-    </button>
-  </span>
-</p>
+<card-navbar></card-navbar>
 <div class="content">
   <img src="assets/revenue.png" alt="" />
 </div>
+<card-footer></card-footer>

@@ -1,0 +1,25 @@
+.heading {
+  display: flex;
+  justify-content: space-between;
+  padding: 22px 30px;
+}
+.heading .title {
+  font-size: 18px;
+}
+.controls .link-btn {
+  background: none;
+  border: none;
+  padding: 5px 13px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #7e8229;
+  cursor: pointer;
+  border-radius: 8px;
+}
+.controls .link-btn:hover {
+  color: #f64e60;
+}
+.controls .link-btn.active {
+  background: #f64e60;
+  color: #fff;
+}

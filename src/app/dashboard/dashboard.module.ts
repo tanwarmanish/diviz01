@@ -5,6 +5,8 @@ import { DashboardRoutingModule } from './dashboard.routing.module';
 import { CardsComponent } from './cards/cards.component';
 import { RevenueComponent } from './revenue/revenue.component';
 import { SummaryComponent } from './summary/summary.component';
+import { CardNavbarComponent } from './card-navbar/card-navbar.component';
+import { CardFooterComponent } from './card-footer/card-footer.component';
 
 @NgModule({
   declarations: [
@@ -12,6 +14,8 @@ import { SummaryComponent } from './summary/summary.component';
     CardsComponent,
     RevenueComponent,
     SummaryComponent,
+    CardNavbarComponent,
+    CardFooterComponent,
   ],
   imports: [CommonModule, DashboardRoutingModule],
 })
