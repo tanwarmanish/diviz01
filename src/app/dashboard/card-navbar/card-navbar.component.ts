@@ -9,18 +9,22 @@ export class CardNavbarComponent implements OnInit {
   timePeriods = [
     {
       key: 'day',
-      title: 'Day',
+      value: 'Day',
     },
     {
       key: 'week',
-      title: 'Week',
+      value: 'Week',
     },
     {
       key: 'month',
-      title: 'Month',
+      value: 'Month',
+    },
+    {
+      key: 'year',
+      value: 'Year',
     },
   ];
-  activePeriod: string = 'month';
+  activePeriod: string = 'day';
 
   constructor() {}
 

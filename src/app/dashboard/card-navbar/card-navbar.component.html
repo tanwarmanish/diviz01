@@ -1,13 +1,17 @@
 <p class="heading">
   <span class="title">Revenue</span>
   <span class="controls">
-    <button
+    <select-dropdown
+      [dataList]="timePeriods"
+      [selectedValue]="activePeriod"
+    ></select-dropdown>
+    <!-- <buttonz
       class="link-btn"
       *ngFor="let period of timePeriods"
       [class.active]="period.key == activePeriod"
       (click)="selectTimePeriod(period)"
     >
       {{ period?.title }}
-    </button>
+    </button> -->
   </span>
 </p>

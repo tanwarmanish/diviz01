@@ -1,0 +1,5 @@
+<mat-select [value]="selectedValue" disableOptionCentering="true">
+  <mat-option *ngFor="let option of dataList" [value]="option[dataKeys.key]">
+    {{ option[dataKeys.value] }}
+  </mat-option>
+</mat-select>
