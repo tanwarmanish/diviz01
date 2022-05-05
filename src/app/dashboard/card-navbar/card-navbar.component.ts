@@ -24,9 +24,9 @@ export class CardNavbarComponent implements OnInit {
   ngOnInit(): void {}
 
   selectTimePeriod(period: any) {
-    if (this.activePeriod == period.key) return;
-    this.activePeriod = period.key;
-    this.changePeriod.emit(this.activePeriod);
+    if (this.activePeriod == period) return;
+    this.activePeriod = period;
+    this.changePeriod.emit(period);
   }
 
   selectIcon(icon: any) {
