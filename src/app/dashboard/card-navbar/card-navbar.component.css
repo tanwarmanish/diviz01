@@ -2,10 +2,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 22px 30px;
+  padding: 20px 10px;
 }
 .heading .title {
   font-size: 18px;
+  font-family: Nunito;
+  font-weight: 600;
 }
 .controls {
   display: flex;
@@ -33,5 +35,3 @@
 .icon:not(.active):hover {
   color: rgba(246, 78, 96, 0.8);
 }
-
-
