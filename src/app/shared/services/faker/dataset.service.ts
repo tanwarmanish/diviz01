@@ -22,7 +22,7 @@ export class DatasetService {
       return {
         revenue: +faker.finance.amount(),
         expense: +faker.finance.amount(),
-        date: moment(startDate).add(index, 'days').format(),
+        date: moment(startDate).add(index, 'days').format('DD/MM'),
       };
     });
     return data;

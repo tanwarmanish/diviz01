@@ -11,12 +11,23 @@ export class ChartComponent implements OnInit {
   @Input() dataList: any[] = [];
   @Input() options: any = {
     series: [],
-    labels: {},
+    title: {},
+    type: {},
+    label: {},
+    color: {},
     xAxis: null,
     yAxis: null,
-    type: 'column',
-    title: {},
+    chartType: 'column',
   };
+
+  getOption(...args: any) {
+    let value = this.options;
+    for (let key of args) {
+      if (key in value) value = value[key];
+      else return null;
+    }
+    return value;
+  }
 
   constructor() {}
 
@@ -33,17 +44,30 @@ export class ChartComponent implements OnInit {
     let series = this.options.series.map((key: string) => {
       let obj = {
         data: dataObj[key],
-        type: this.options.type,
-        name: this.options.labels[key],
+        type: this.getOption('type', key),
+        name: this.getOption('label', key),
+        color: this.getOption('color', key),
       };
       return obj;
     });
+
+    let xAxisArray: any = this.options['xAxis'];
+    if (xAxisArray) {
+      let type = typeof xAxisArray;
+      if (type === 'string') xAxisArray = dataObj[xAxisArray];
+    }
 
     // init chart
     this.chartOptions = {
       ...this.chartOptions,
       title: { text: '', ...this.options.title },
+      xAxis: {
+        categories: xAxisArray,
+      },
       series,
+      chart: {
+        type: this.options.chartType,
+      },
     };
   }
 
