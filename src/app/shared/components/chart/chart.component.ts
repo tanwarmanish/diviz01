@@ -18,7 +18,6 @@ export class ChartComponent implements OnInit {
   };
 
   @Input() data = [];
-  @Input() type
   constructor() {}
 
   ngOnInit(): void {}
