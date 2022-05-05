@@ -1,10 +1,10 @@
 <card-navbar
   title="Revenue"
   periods="day|week"
-  icons="bar|line"
+  icons="column|spline"
   (changePeriod)="onPeriodChange($event)"
   (changeIcon)="onChartChange($event)"
 ></card-navbar>
 <div class="content">
-  <chart></chart>
+  <chart [dataList]="dataList" [options]="chartOptions"></chart>
 </div>

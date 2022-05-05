@@ -19,8 +19,8 @@ export const Periods = [
 
 export const Icons = {
   pie: 'donut_large',
-  bar: 'bar_chart',
+  column: 'bar_chart',
   stacked: 'stacked_bar_chart',
   grouped: 'grouped_bar_chart',
-  line: 'show_chart',
+  spline: 'show_chart',
 };

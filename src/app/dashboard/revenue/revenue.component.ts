@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DatasetService } from 'src/app/shared/services/faker/dataset.service';
 
 @Component({
   selector: 'app-revenue',
@@ -6,15 +7,34 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./revenue.component.css'],
 })
 export class RevenueComponent implements OnInit {
-  
-  constructor() {}
+  dataList: any = [];
+  chartOptions = {};
+  chartType: string = 'column';
+
+  constructor(private dataset: DatasetService) {
+    this.initChartOptions();
+    this.dataList = this.dataset.generateRevenueExpense(50);
+  }
+
+  initChartOptions() {
+    this.chartOptions = {
+      series: ['revenue', 'expense'],
+      labels: {
+        revenue: 'Revenue',
+        expense: 'Expenses',
+      },
+      type: this.chartType,
+    };
+  }
 
   ngOnInit(): void {}
 
   onPeriodChange(period: string) {
     console.log(period);
   }
+
   onChartChange(type: string) {
-    console.log(type);
+    this.chartType = type;
+    this.initChartOptions();
   }
 }
