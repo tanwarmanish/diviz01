@@ -2,6 +2,7 @@
   [value]="selectedValue"
   disableOptionCentering="true"
   panelClass="position-panel"
+  (selectionChange)="onSelectionChange.emit($event.value)"
 >
   <mat-option *ngFor="let option of dataList" [value]="option[dataKeys.key]">
     {{ option[dataKeys.value] }}

@@ -11,5 +11,10 @@ export class RevenueComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  
+  onPeriodChange(period: string) {
+    console.log(period);
+  }
+  onChartChange(type: string) {
+    console.log(type);
+  }
 }

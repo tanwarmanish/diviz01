@@ -5,6 +5,7 @@
       *ngIf="activePeriod"
       [dataList]="periodsList"
       [selectedValue]="activePeriod"
+      (onSelectionChange)="selectIcon($event)"
     ></select-dropdown>
     <span class="view" *ngIf="iconsArr?.length">
       <ng-container *ngFor="let icon of iconsArr; let i = index">

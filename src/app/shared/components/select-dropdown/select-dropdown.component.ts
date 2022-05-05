@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'select-dropdown',
@@ -25,6 +25,7 @@ export class SelectDropdownComponent implements OnInit {
   @Input() dataKeys = { key: 'key', value: 'value' };
   @Input() selectedValue: string = '';
   @Input() selectedValueLabel: string = '';
+  @Output() onSelectionChange = new EventEmitter();
 
   constructor() {}
 

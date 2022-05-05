@@ -1,4 +1,10 @@
-<card-navbar title="Revenue" periods="D|W|Y" icons="bar|line"></card-navbar>
+<card-navbar
+  title="Revenue"
+  periods="day|week"
+  icons="bar|line"
+  (changePeriod)="onPeriodChange($event)"
+  (changeIcon)="onChartChange($event)"
+></card-navbar>
 <div class="content">
   <img src="assets/revenue.png" alt="" />
 </div>

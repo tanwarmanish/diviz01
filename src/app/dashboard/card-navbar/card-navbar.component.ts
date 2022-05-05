@@ -41,7 +41,7 @@ export class CardNavbarComponent implements OnInit {
         this.periodsList = Periods;
       } else {
         const periodsArr = periods.split('|');
-        this.periodsList = Periods.filter((p) => periodsArr.includes(p.key[0]));
+        this.periodsList = Periods.filter((p) => periodsArr.includes(p.key));
       }
       this.activePeriod = this.periodsList.length
         ? this.periodsList[0].key
