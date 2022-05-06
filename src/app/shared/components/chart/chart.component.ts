@@ -47,7 +47,8 @@ export class ChartComponent implements OnInit {
 
   initChart() {
     let dataObj = this.extractColumns(this.dataList);
-    console.log(this.options, dataObj);
+    let chartType = this.options.chartType;
+    let preprocess = this.isPreprocessingRequired(chartType);
     let series = this.options.series.map((key: string) => {
       let obj = {
         data: dataObj[key],
@@ -57,7 +58,10 @@ export class ChartComponent implements OnInit {
       };
       return obj;
     });
-
+    if (preprocess) {
+      series = this.preprocessSeries(chartType, series);
+      console.log(series);
+    }
     let xAxisArray: any = this.options['xAxis'];
     if (xAxisArray) {
       let type = typeof xAxisArray;
@@ -74,10 +78,45 @@ export class ChartComponent implements OnInit {
       },
       series,
       chart: {
-        type: this.options.chartType,
+        type: chartType,
       },
+      plotOptions: this.options.plotOptions,
     };
-    console.log(this.chartOptions);
+  }
+
+  isPreprocessingRequired(type: string) {
+    switch (type) {
+      case 'funnel':
+        return true;
+    }
+    return false;
+  }
+
+  preprocessSeries(type: string, series: any[]) {
+    switch (type) {
+      case 'funnel':
+        return this.preprocessFunnel(series);
+    }
+    return [];
+  }
+
+  preprocessFunnel(series: any[]) {
+    if (series.length != 2) return series;
+    let options = series[0];
+    let totalEntries = series[0].data.length;
+    let seriesData = [];
+    for (let i = 0; i < totalEntries; i++) {
+      let temp = [];
+      for (let k in series) temp.push(series[k].data[i]);
+      seriesData.push(temp);
+    }
+
+    let response = {
+      ...options,
+      data: seriesData,
+    };
+
+    return [response];
   }
 
   // extract out all the arrays out of main array

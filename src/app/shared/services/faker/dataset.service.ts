@@ -29,14 +29,15 @@ export class DatasetService {
   }
 
   generatePipeline(stages: string[]) {
-    let data: any = [];
     let values = stages
       .map((_) => Math.floor(+faker.finance.amount()))
-      .sort()
-      .reverse();
-    data = values.map((v, i) => {
-      return [stages[i], v];
+      .sort((a, b) => b - a);
+
+    return values.map((y, i) => {
+      return {
+        name: stages[i],
+        y,
+      };
     });
-    return data;
   }
 }

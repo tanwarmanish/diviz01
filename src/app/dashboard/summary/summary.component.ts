@@ -45,17 +45,30 @@ export class SummaryComponent implements OnInit {
   ];
   ngOnInit(): void {
     this.initChartOptions();
-    this.dataList = [{ data: this.dataset.generatePipeline(this.stages) }];
+    this.dataList = this.dataset.generatePipeline(this.stages);
   }
 
   initChartOptions() {
     this.chartOptions = {
-      series: ['data'],
+      series: ['name', 'y'],
       label: {
-        data: 'FUNNEL RU',
+        name: 'name',
+        y: 'y',
       },
       chartType: this.chartType,
+      plotOptions: {
+        series: {
+          dataLabels: {
+            enabled: true,
+            format: '<b>{point.name}</b> ({point.y:,.0f})',
+            softConnector: true,
+          },
+          center: ['40%', '50%'],
+          neckWidth: '30%',
+          neckHeight: '25%',
+          width: '70%',
+        },
+      },
     };
-    console.log(this.chartOptions);
   }
 }
