@@ -1,5 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
+import Exporting from 'highcharts/modules/exporting';
+import funnel from 'highcharts/modules/funnel';
+
+funnel(Highcharts);
+Exporting(Highcharts);
+
 @Component({
   selector: 'chart',
   templateUrl: './chart.component.html',
@@ -7,7 +13,7 @@ import * as Highcharts from 'highcharts';
 })
 export class ChartComponent implements OnInit {
   Highcharts: typeof Highcharts = Highcharts;
-  @Input() chartOptions: Highcharts.Options = {};
+  @Input() chartOptions: any = {};
   @Input() dataList: any[] = [];
   @Input() options: any = {
     series: [],
@@ -41,6 +47,7 @@ export class ChartComponent implements OnInit {
 
   initChart() {
     let dataObj = this.extractColumns(this.dataList);
+    console.log(this.options, dataObj);
     let series = this.options.series.map((key: string) => {
       let obj = {
         data: dataObj[key],
@@ -58,6 +65,7 @@ export class ChartComponent implements OnInit {
     }
 
     // init chart
+
     this.chartOptions = {
       ...this.chartOptions,
       title: { text: '', ...this.options.title },
@@ -69,6 +77,7 @@ export class ChartComponent implements OnInit {
         type: this.options.chartType,
       },
     };
+    console.log(this.chartOptions);
   }
 
   // extract out all the arrays out of main array

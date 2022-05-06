@@ -13,7 +13,7 @@ export class RevenueComponent implements OnInit {
 
   constructor(private dataset: DatasetService) {
     this.initChartOptions();
-    this.dataList = this.dataset.generateRevenueExpense(30);
+    this.dataList = this.dataset.generateRevenueExpense(20);
   }
 
   initChartOptions() {
@@ -21,7 +21,7 @@ export class RevenueComponent implements OnInit {
       series: ['revenue', 'expense'],
       label: {
         revenue: 'Revenue',
-        expense: 'Expenses',
+        expense: 'Expense',
       },
       color: {
         revenue: '#2ecc71',

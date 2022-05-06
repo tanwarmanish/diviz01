@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { DatasetService } from 'src/app/shared/services/faker/dataset.service';
 
 @Component({
-  selector: 'app-summary',
+  selector: 'app-pipeline',
   templateUrl: './summary.component.html',
   styleUrls: ['./summary.component.css'],
 })
 export class SummaryComponent implements OnInit {
+  dataList: any = [];
+  chartOptions = {};
+  chartType = 'funnel';
   summary = [
     {
       value: '100k',
@@ -30,7 +34,28 @@ export class SummaryComponent implements OnInit {
   ];
   colors = ['#673ab7', '#4caf50', '#03a9f4', '#607d8b'];
 
-  constructor() {}
+  constructor(private dataset: DatasetService) {}
 
-  ngOnInit(): void {}
+  stages = [
+    'Leads',
+    'Fav. Stage of the Companies',
+    'Qualified',
+    'Customers',
+    'Prospects',
+  ];
+  ngOnInit(): void {
+    this.initChartOptions();
+    this.dataList = [{ data: this.dataset.generatePipeline(this.stages) }];
+  }
+
+  initChartOptions() {
+    this.chartOptions = {
+      series: ['data'],
+      label: {
+        data: 'FUNNEL RU',
+      },
+      chartType: this.chartType,
+    };
+    console.log(this.chartOptions);
+  }
 }
