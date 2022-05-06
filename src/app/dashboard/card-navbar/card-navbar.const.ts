@@ -23,4 +23,5 @@ export const Icons = {
   stacked: 'stacked_bar_chart',
   grouped: 'grouped_bar_chart',
   spline: 'show_chart',
+  funnel: 'filter_alt',
 };

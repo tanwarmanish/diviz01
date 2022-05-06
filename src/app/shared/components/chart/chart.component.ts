@@ -25,6 +25,7 @@ export class ChartComponent implements OnInit {
     yAxis: null,
     chartType: 'column',
   };
+  loading: boolean = false;
 
   getOption(...args: any) {
     let value = this.options;
@@ -41,6 +42,7 @@ export class ChartComponent implements OnInit {
 
   ngOnChanges(changes: any): void {
     if (changes && (changes.dataList || changes.options)) {
+      this.loading = false;
       this.initChart();
     }
   }
@@ -60,7 +62,6 @@ export class ChartComponent implements OnInit {
     });
     if (preprocess) {
       series = this.preprocessSeries(chartType, series);
-      console.log(series);
     }
     let xAxisArray: any = this.options['xAxis'];
     if (xAxisArray) {
@@ -80,13 +81,18 @@ export class ChartComponent implements OnInit {
       chart: {
         type: chartType,
       },
-      plotOptions: this.options.plotOptions,
+      plotOptions: this.getOption('plotOptions') || {},
+      exporting: {
+        enabled: false,
+      },
     };
+    this.loading = true;
   }
 
   isPreprocessingRequired(type: string) {
     switch (type) {
       case 'funnel':
+      case 'pie':
         return true;
     }
     return false;
@@ -96,6 +102,8 @@ export class ChartComponent implements OnInit {
     switch (type) {
       case 'funnel':
         return this.preprocessFunnel(series);
+      case 'pie':
+        return this.preprocessPie(series);
     }
     return [];
   }
@@ -113,9 +121,35 @@ export class ChartComponent implements OnInit {
 
     let response = {
       ...options,
+      name: this.getOption('label', 'seriesName'),
       data: seriesData,
     };
 
+    return [response];
+  }
+
+  preprocessPie(series: any[]) {
+    if (series.length != 2) return series;
+    let options = series[0];
+    let seriesData = [];
+    let totalEntries = series[0].data.length;
+    for (let i = 0; i < totalEntries; i++) {
+      let obj = {};
+      for (let k in series) {
+        let o = series[k];
+        obj = {
+          ...obj,
+          [o.name]: o.data[i],
+        };
+      }
+      seriesData.push(obj);
+    }
+    let response = {
+      ...options,
+      colorByPoint: true,
+      name: this.getOption('label', 'seriesName'),
+      data: seriesData,
+    };
     return [response];
   }
 
