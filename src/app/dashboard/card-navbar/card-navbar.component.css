@@ -3,6 +3,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px 10px;
+  padding-bottom: 15px;
 }
 .heading .title {
   font-size: 18px;
@@ -18,12 +19,14 @@
   display: flex;
   margin-left: 20px;
   border-radius: 5px;
-  border: 1px solid rgb(172, 172, 172);
+  background-color: #f1f2f6;
   overflow: hidden;
 }
 .view .icon {
   padding: 5px;
   cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .icon.active {

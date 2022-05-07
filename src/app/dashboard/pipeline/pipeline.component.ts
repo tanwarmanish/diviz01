@@ -88,7 +88,7 @@ export class PipelineComponent implements OnInit {
         pie: {
           allowPointSelect: true,
           cursor: 'pointer',
-          size: 250.0,
+          size: 230.0,
           center: ['50%', '50%'],
           dataLabels: {
             enabled: true,
