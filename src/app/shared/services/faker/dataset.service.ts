@@ -40,4 +40,17 @@ export class DatasetService {
       };
     });
   }
+
+  generateQuoteStatus(status: string[], count: number) {
+    return status.map((y, i) => {
+      return {
+        name: status[i],
+        y: Math.floor(+faker.finance.amount()),
+      };
+    });
+  }
+
+  getNames(count: number) {
+    return [...new Array(count)].map((i) => faker.name.firstName());
+  }
 }

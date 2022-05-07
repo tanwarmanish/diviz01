@@ -62,6 +62,7 @@ export class ChartComponent implements OnInit {
     });
     if (preprocess) {
       series = this.preprocessSeries(chartType, series);
+      if (chartType == 'stacked') chartType = 'column';
     }
     let xAxisArray: any = this.options['xAxis'];
     if (xAxisArray) {
@@ -69,6 +70,7 @@ export class ChartComponent implements OnInit {
       if (type === 'string') xAxisArray = dataObj[xAxisArray];
     }
 
+    console.log(xAxisArray)
     // init chart
 
     this.chartOptions = {
@@ -87,12 +89,14 @@ export class ChartComponent implements OnInit {
       },
     };
     this.loading = true;
+    console.log(this.chartOptions);
   }
 
   isPreprocessingRequired(type: string) {
     switch (type) {
       case 'funnel':
       case 'pie':
+      case 'stacked':
         return true;
     }
     return false;
@@ -104,6 +108,10 @@ export class ChartComponent implements OnInit {
         return this.preprocessFunnel(series);
       case 'pie':
         return this.preprocessPie(series);
+      case 'stacked': {
+        let response = this.preprocessPie(series);
+        return response[0] ? response[0]['data'] : response;
+      }
     }
     return [];
   }

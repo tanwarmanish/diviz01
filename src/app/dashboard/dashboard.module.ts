@@ -8,6 +8,7 @@ import { PipelineComponent } from './pipeline/pipeline.component';
 import { CardNavbarComponent } from './card-navbar/card-navbar.component';
 import { CardFooterComponent } from './card-footer/card-footer.component';
 import { SharedModule } from '../shared/shared.module';
+import { QuotesStatusComponent } from './quotes-status/quotes-status.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { SharedModule } from '../shared/shared.module';
     CardsComponent,
     RevenueComponent,
     PipelineComponent,
+    QuotesStatusComponent,
     CardNavbarComponent,
     CardFooterComponent,
   ],
