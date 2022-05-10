@@ -12,16 +12,20 @@ export class RevenueComponent extends HighchartComponent implements OnInit {
   override chartType = 'spline';
   override chartPeriod = 'day';
   override chartTypes = 'column|spline';
-  override chartPeriods = 'day|week|month|year';
+  override chartPeriods = 'day|week|month';
 
   ngOnInit(): void {
     this.initChartOptions();
-    this.dataList = this.dataset.generateRevenueExpense(10);
+    this.dataList = this.dataset.generateRevenueExpense(365);
     this.publishChart();
   }
 
   initChartOptions() {
     let options = {
+      xAxis: {
+        categories: [],
+      },
+
       series: [
         {
           name: 'Revenue',
@@ -47,10 +51,12 @@ export class RevenueComponent extends HighchartComponent implements OnInit {
   publishChart() {
     let seriesObj = this.generateSeries(this.dataList);
     this.updateSeries(seriesObj);
+    this.updateXAxis(seriesObj.date);
   }
 
   onPeriodChange(period: string) {
-    console.log(period);
+    this.chartPeriod = period;
+    this.publishChart();
   }
 
   onChartChange(type: string) {

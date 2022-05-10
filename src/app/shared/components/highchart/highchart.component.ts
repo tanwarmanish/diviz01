@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { DatasetService } from '../../services/faker/dataset.service';
+import * as moment from 'moment';
 
 import * as Highcharts from 'highcharts';
 import Exporting from 'highcharts/modules/exporting';
@@ -29,11 +30,27 @@ export class HighchartComponent {
   public chartPeriod = 'day';
   public chartTypes = '';
   public chartPeriods = '';
+  public defaultRange = 10;
 
   constructor(public cd: ChangeDetectorRef, public dataset: DatasetService) {}
 
+  applyPeriod(dataList: any[]) {
+    let type = this.chartPeriod || [];
+    switch (type) {
+      case 'day':
+        return dataList;
+      case 'week':
+      case 'month':
+      case 'year':
+        return this.groupBy(dataList, type);
+    }
+    return dataList;
+  }
+
   generateSeries(dataList: any[]) {
     if (dataList.length == 0) return {};
+    dataList = JSON.parse(JSON.stringify(dataList));
+    dataList = this.applyPeriod(dataList);
     let keys = Object.keys(dataList[0]);
     let dataObj: any = keys.reduce((o, k) => Object.assign(o, { [k]: [] }), {});
     dataList.forEach((ele) =>
@@ -53,8 +70,41 @@ export class HighchartComponent {
     let series = this.chartOptions.series;
     series.forEach((s: any) => {
       let data = seriesObj[s.key];
-      s.data = data;
+      s.data = data.slice(0, this.defaultRange);
     });
     this.updateChartOptions({ series });
+  }
+
+  updateXAxis(series: any[]) {
+    let xAxis = this.chartOptions.xAxis;
+    xAxis = {
+      ...xAxis,
+      categories: series,
+    };
+    this.updateChartOptions({ xAxis });
+  }
+
+  /* group by */
+  groupBy(dataList: any[], key: any = 'week') {
+    let months = dataList.map((entry) =>
+      moment(entry.date).startOf(key).format()
+    );
+    let slowPtr = 0,
+      fastPtr = 0;
+    while (slowPtr < dataList.length) {
+      while (months[slowPtr] == months[fastPtr]) {
+        if (slowPtr != fastPtr)
+          for (let key in dataList[slowPtr]) {
+            if (key != 'date') dataList[slowPtr][key] += dataList[fastPtr][key];
+          }
+        fastPtr++;
+      }
+      slowPtr++;
+      while (slowPtr != fastPtr) {
+        dataList[slowPtr] = null;
+        slowPtr++;
+      }
+    }
+    return dataList.filter((entry) => entry);
   }
 }

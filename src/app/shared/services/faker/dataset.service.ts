@@ -16,13 +16,13 @@ export class DatasetService {
   }
 
   generateRevenueExpense(count: number = 10) {
-    let data: any = [...new Array(count)];
-    let startDate = moment().subtract(10, 'days');
-    data = data.map((_: any, index: number) => {
+    let data: any = [];
+    let startDate = moment().subtract(count, 'days');
+    data = [...new Array(count)].map((_: any, index: number) => {
       return {
         revenue: +faker.finance.amount(),
         expense: +faker.finance.amount(),
-        date: moment(startDate).add(index, 'days').format('DD/MM'),
+        date: moment(startDate).add(index, 'days').format(),
       };
     });
     return data;
