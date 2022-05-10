@@ -2,6 +2,6 @@
   title="Quotes Status"
   periods="day|week"
   (changePeriod)="onPeriodChange($event)"
-  (changeIcon)="onChartChange($event)"
+  (changeType)="onChartChange($event)"
 ></card-navbar>
 <chart [dataList]="dataList" [options]="chartOptions"></chart>

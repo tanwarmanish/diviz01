@@ -17,11 +17,29 @@ export const Periods = [
   },
 ];
 
-export const Icons = {
-  pie: 'donut_large',
-  column: 'bar_chart',
-  stacked: 'stacked_bar_chart',
-  grouped: 'grouped_bar_chart',
-  spline: 'show_chart',
-  funnel: 'filter_alt',
-};
+export const Types = [
+  {
+    key: 'pie',
+    icon: 'donut_large',
+  },
+  {
+    key: 'column',
+    icon: 'bar_chart',
+  },
+  {
+    key: 'stacked',
+    icon: 'stacked_bar_chart',
+  },
+  {
+    key: 'grouped',
+    icon: 'grouped_bar_chart',
+  },
+  {
+    key: 'spline',
+    icon: 'show_chart',
+  },
+  {
+    key: 'funnel',
+    icon: 'filter_alt',
+  },
+];

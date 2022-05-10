@@ -1,6 +1,6 @@
 mat-select {
   width: 90px;
-  border: 1px solid #f64e60;
-  padding: 3px 10px;
-  border-radius: 10px;
+  border: 2px solid #f64e60;
+  padding: 3px 5px 3px 15px;
+  border-radius: 20px;
 }

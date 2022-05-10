@@ -1,10 +1,16 @@
 <card-navbar
   title="Revenue vs Expense"
-  periods="day|week"
-  icons="column|spline"
+  [periods]="chartPeriods"
+  [types]="chartTypes"
+  [activeType]="chartType"
+  [activePeriod]="chartPeriod"
   (changePeriod)="onPeriodChange($event)"
-  (changeIcon)="onChartChange($event)"
+  (changeType)="onChartChange($event)"
 ></card-navbar>
 <div class="content">
-  <chart [dataList]="dataList" [options]="chartOptions"></chart>
+  <highcharts-chart
+    [Highcharts]="Highcharts"
+    [options]="chartOptions"
+    [style]="chartStyle"
+  ></highcharts-chart>
 </div>

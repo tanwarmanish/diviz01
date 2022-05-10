@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { Icons, Periods } from './card-navbar.const';
+import { Types, Periods } from './card-navbar.const';
 @Component({
   selector: 'card-navbar',
   templateUrl: './card-navbar.component.html',
@@ -7,17 +7,15 @@ import { Icons, Periods } from './card-navbar.const';
 })
 export class CardNavbarComponent implements OnInit {
   periodsList: any[] = Periods;
-  iconsObj: any = Icons;
-  iconsArr: any[] = [];
-
-  activePeriod: string = '';
-  activeIcon: string = '';
+  typesList: any[] = Types;
 
   @Input() title = 'Card Navbar';
-  @Input() periods = ''; // set to all to include all periods
-  @Input() icons = '';
+  @Input() activeType: string = '';
+  @Input() activePeriod: string = '';
+  @Input() periods: string = ''; // set to all to include all periods
+  @Input() types: string = '';
   @Output() changePeriod = new EventEmitter();
-  @Output() changeIcon = new EventEmitter();
+  @Output() changeType = new EventEmitter();
 
   constructor() {}
 
@@ -29,28 +27,24 @@ export class CardNavbarComponent implements OnInit {
     this.changePeriod.emit(period);
   }
 
-  selectIcon(icon: any) {
-    this.activeIcon = icon;
-    this.changeIcon.emit(this.activeIcon);
+  selectType(type: any) {
+    this.activeType = type;
+    this.changeType.emit(this.activeType);
   }
 
   ngOnChanges(changes: any) {
     if (changes && changes.periods) {
-      const periods = this.periods.toLowerCase();
-      if (periods === 'all') {
-        this.periodsList = Periods;
-      } else {
-        const periodsArr = periods.split('|');
-        this.periodsList = Periods.filter((p) => periodsArr.includes(p.key));
-      }
-      this.activePeriod = this.periodsList.length
-        ? this.periodsList[0].key
-        : '';
+      const periodsArr = this.periods.toLowerCase().split('|');
+      this.periodsList = periodsArr.map((key) =>
+        Periods.find((period) => period.key == key)
+      );
     }
 
-    if (changes && changes.icons && changes.icons.currentValue) {
-      this.iconsArr = this.icons.split('|');
-      this.activeIcon = this.iconsArr.length ? this.iconsArr[0] : '';
+    if (changes && changes.types && changes.types.currentValue) {
+      let typesArr = this.types.split('|');
+      this.typesList = typesArr.map((key) =>
+        Types.find((type) => type.key == key)
+      );
     }
   }
 }

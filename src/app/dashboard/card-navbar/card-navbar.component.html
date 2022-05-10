@@ -7,18 +7,18 @@
       [selectedValue]="activePeriod"
       (onSelectionChange)="selectTimePeriod($event)"
     ></select-dropdown>
-    <span class="view" *ngIf="iconsArr?.length">
-      <ng-container *ngFor="let icon of iconsArr; let i = index">
+    <span class="view" *ngIf="typesList?.length">
+      <ng-container *ngFor="let type of typesList; let i = index">
         <span
           class="icon material-symbols-outlined"
-          [class.active]="activeIcon == icon"
-          (click)="selectIcon(icon)"
+          [class.active]="activeType == type.key"
+          (click)="selectType(type.key)"
         >
-          {{ iconsObj[icon] }}
+          {{ type?.icon }}
         </span>
         <mat-divider
           [vertical]="true"
-          *ngIf="i != 0 && i != iconsArr.length - 1"
+          *ngIf="i != 0 && i != typesList.length - 1"
         ></mat-divider>
       </ng-container>
     </span>

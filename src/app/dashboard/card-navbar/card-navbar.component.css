@@ -5,10 +5,12 @@
   padding: 20px 10px;
   padding-bottom: 15px;
 }
+
 .heading .title {
   font-size: 18px;
   opacity: 0.9;
 }
+
 .controls {
   display: flex;
   align-items: center;
@@ -21,6 +23,7 @@
   background-color: #f1f2f6;
   overflow: hidden;
 }
+
 .view .icon {
   padding: 5px;
   cursor: pointer;

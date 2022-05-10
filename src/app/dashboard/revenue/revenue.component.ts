@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { HighchartComponent } from 'src/app/shared/components/highchart/highchart.component';
 import { DatasetService } from 'src/app/shared/services/faker/dataset.service';
 
 @Component({
@@ -6,33 +7,47 @@ import { DatasetService } from 'src/app/shared/services/faker/dataset.service';
   templateUrl: './revenue.component.html',
   styleUrls: ['./revenue.component.css'],
 })
-export class RevenueComponent implements OnInit {
+export class RevenueComponent extends HighchartComponent implements OnInit {
   dataList: any = [];
-  chartOptions = {};
-  chartType: string = 'spline';
+  override chartType = 'spline';
+  override chartPeriod = 'day';
+  override chartTypes = 'column|spline';
+  override chartPeriods = 'day|week|month|year';
 
-  constructor(private dataset: DatasetService) {
+  ngOnInit(): void {
     this.initChartOptions();
     this.dataList = this.dataset.generateRevenueExpense(10);
+    this.publishChart();
   }
 
   initChartOptions() {
-    this.chartOptions = {
-      series: ['revenue', 'expense'],
-      label: {
-        revenue: 'Revenue',
-        expense: 'Expense',
+    let options = {
+      series: [
+        {
+          name: 'Revenue',
+          key: 'revenue',
+          color: '#2ecc71',
+          data: [],
+        },
+        {
+          name: 'Expenses',
+          key: 'expense',
+          color: '#e74c3c',
+          data: [],
+        },
+      ],
+
+      chart: {
+        type: this.chartType,
       },
-      color: {
-        revenue: '#2ecc71',
-        expense: '#e74c3c',
-      },
-      chartType: this.chartType,
-      xAxis: 'date',
     };
+    this.updateChartOptions(options);
   }
 
-  ngOnInit(): void {}
+  publishChart() {
+    let seriesObj = this.generateSeries(this.dataList);
+    this.updateSeries(seriesObj);
+  }
 
   onPeriodChange(period: string) {
     console.log(period);
@@ -40,6 +55,6 @@ export class RevenueComponent implements OnInit {
 
   onChartChange(type: string) {
     this.chartType = type;
-    this.initChartOptions();
+    this.updateChartOptions({ chart: { type } });
   }
 }
