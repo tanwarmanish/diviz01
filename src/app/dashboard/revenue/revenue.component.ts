@@ -9,11 +9,11 @@ import { DatasetService } from 'src/app/shared/services/faker/dataset.service';
 export class RevenueComponent implements OnInit {
   dataList: any = [];
   chartOptions = {};
-  chartType: string = 'column';
+  chartType: string = 'spline';
 
   constructor(private dataset: DatasetService) {
     this.initChartOptions();
-    this.dataList = this.dataset.generateRevenueExpense(20);
+    this.dataList = this.dataset.generateRevenueExpense(10);
   }
 
   initChartOptions() {

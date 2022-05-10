@@ -9,6 +9,7 @@ import { CardNavbarComponent } from './card-navbar/card-navbar.component';
 import { CardFooterComponent } from './card-footer/card-footer.component';
 import { SharedModule } from '../shared/shared.module';
 import { QuotesStatusComponent } from './quotes-status/quotes-status.component';
+import { SummaryComponent } from './summary/summary.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { QuotesStatusComponent } from './quotes-status/quotes-status.component';
     QuotesStatusComponent,
     CardNavbarComponent,
     CardFooterComponent,
+    SummaryComponent,
   ],
   imports: [CommonModule, DashboardRoutingModule, SharedModule],
 })

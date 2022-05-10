@@ -1,0 +1,33 @@
+<div class="row">
+  <ng-container *ngFor="let data of dataList; let i = index">
+    <div class="col m3">
+      <div class="card">
+        <h3>{{ data?.title }}</h3>
+        <p class="text-content">
+          <span class="value number">${{ data?.total || 0 }}</span>
+          <span class="percent">
+            <span
+              *ngIf="data?.changePercent"
+              class="icon material-symbols-outlined arrow_downward"
+              [ngClass]="{ arrow_upward: data.changePercent > 0 }"
+              >{{
+                data.changePercent > 0 ? "arrow_upward" : "arrow_downward"
+              }}</span
+            >
+            <span
+              class="change number arrow_downward"
+              [ngClass]="{ arrow_upward: data.changePercent > 0 }"
+            >
+              {{ Math.abs(data.changePercent || 0) }}%</span
+            >
+          </span>
+        </p>
+        <highcharts-chart
+          [Highcharts]="Highcharts"
+          [options]="data.chartOptions"
+          [style]="styleStr"
+        ></highcharts-chart>
+      </div>
+    </div>
+  </ng-container>
+</div>

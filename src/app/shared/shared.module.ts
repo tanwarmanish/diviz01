@@ -9,7 +9,12 @@ import { DatasetService } from './services/faker/dataset.service';
 @NgModule({
   declarations: [SelectDropdownComponent, ChartComponent],
   imports: [CommonModule, ...MaterialImports, HighchartsChartModule],
-  exports: [...MaterialImports, SelectDropdownComponent, ChartComponent],
+  exports: [
+    ...MaterialImports,
+    SelectDropdownComponent,
+    ChartComponent,
+    HighchartsChartModule,
+  ],
   providers: [DatasetService],
 })
 export class SharedModule {}

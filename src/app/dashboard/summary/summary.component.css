@@ -1,0 +1,38 @@
+h3 {
+  text-transform: uppercase;
+  font-weight: 500;
+  padding-top: 5px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  margin: 0;
+  color: #848484;
+}
+.text-content {
+  padding: 0px 10px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+}
+.text-content .value {
+  font-size: 22px;
+  line-height: 36px;
+  font-weight: 400;
+}
+.percent {
+  padding: 8px;
+}
+.percent .icon,
+.percent .change {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.arrow_downward {
+  color: red;
+}
+.arrow_upward {
+  color: green;
+}
+.percent .icon {
+  font-weight: 600;
+}

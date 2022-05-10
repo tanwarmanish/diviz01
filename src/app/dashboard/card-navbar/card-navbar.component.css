@@ -7,8 +7,7 @@
 }
 .heading .title {
   font-size: 18px;
-  font-family: Nunito;
-  font-weight: 600;
+  opacity: 0.9;
 }
 .controls {
   display: flex;
