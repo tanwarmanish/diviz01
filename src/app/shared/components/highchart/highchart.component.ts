@@ -34,6 +34,10 @@ export class HighchartComponent {
 
   constructor(public cd: ChangeDetectorRef, public dataset: DatasetService) {}
 
+  copy(data: any) {
+    return JSON.parse(JSON.stringify(data));
+  }
+
   applyPeriod(dataList: any[]) {
     let type = this.chartPeriod || [];
     switch (type) {
@@ -49,7 +53,7 @@ export class HighchartComponent {
 
   generateSeries(dataList: any[]) {
     if (dataList.length == 0) return {};
-    dataList = JSON.parse(JSON.stringify(dataList));
+    dataList = this.copy(dataList);
     dataList = this.applyPeriod(dataList);
     let keys = Object.keys(dataList[0]);
     let dataObj: any = keys.reduce((o, k) => Object.assign(o, { [k]: [] }), {});
@@ -75,7 +79,12 @@ export class HighchartComponent {
     this.updateChartOptions({ series });
   }
 
-  updateXAxis(series: any[]) {
+  updateXAxis(series: any[], isDate = false) {
+    series = this.copy(series);
+
+    // generate labels
+    isDate && (series = this.generateDateAxisLabel(series));
+
     let xAxis = this.chartOptions.xAxis;
     xAxis = {
       ...xAxis,
@@ -106,5 +115,23 @@ export class HighchartComponent {
       }
     }
     return dataList.filter((entry) => entry);
+  }
+
+  generateDateAxisLabel(series: any[]) {
+    // let type: any = this.chartType;
+    let format = 'DD/MM/YYYY';
+    series = series.map((date) => {
+      if (
+        moment(date).format(format) ==
+        moment(date).startOf('month').format(format)
+      ) {
+        return moment(date).format('MMM');
+      } else {
+        return moment(date).format('DD MMM,YY');
+      }
+      // return 1;
+    });
+    console.log(series);
+    return series;
   }
 }

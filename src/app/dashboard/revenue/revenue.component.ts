@@ -51,7 +51,7 @@ export class RevenueComponent extends HighchartComponent implements OnInit {
   publishChart() {
     let seriesObj = this.generateSeries(this.dataList);
     this.updateSeries(seriesObj);
-    this.updateXAxis(seriesObj.date);
+    this.updateXAxis(seriesObj.date, true);
   }
 
   onPeriodChange(period: string) {
