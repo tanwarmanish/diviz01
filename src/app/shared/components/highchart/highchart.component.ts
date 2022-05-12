@@ -172,4 +172,25 @@ export class HighchartComponent {
   axisExtremes(min = null, max = null, revert = false) {
     this.chartRef && this.chartRef.xAxis[0].setExtremes(min, max);
   }
+
+  // moving average
+  generateMVA(dataObj: any, average: number) {
+    for (let key in dataObj) {
+      if (key != 'date') {
+        let arr = this.copy(dataObj[key]);
+        for (let i = arr.length - 1; i >= 0; i--) {
+          let j = i - 1;
+          let count = 1;
+          while (j > i - average && j >= 0) {
+            arr[i][1] += arr[j][1];
+            count++;
+            j--;
+          }
+          arr[i][1] /= count;
+        }
+        dataObj[`avg${key}`] = arr;
+      }
+    }
+    return dataObj;
+  }
 }

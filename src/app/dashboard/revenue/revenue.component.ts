@@ -33,6 +33,22 @@ export class RevenueComponent extends HighchartComponent implements OnInit {
       },
       series: [
         {
+          name: 'Average Expense',
+          key: 'avgexpense',
+          opacity: 0.35,
+          type: 'areaspline',
+          data: [],
+          enableMouseTracking: false,
+        },
+        {
+          name: 'Average Revenue',
+          key: 'avgrevenue',
+          opacity: 0.35,
+          type: 'areaspline',
+          data: [],
+          enableMouseTracking: false,
+        },
+        {
           name: 'Revenue',
           key: 'revenue',
           color: '#2ecc71',
@@ -50,6 +66,19 @@ export class RevenueComponent extends HighchartComponent implements OnInit {
         panning: true,
         panKey: 'click',
       },
+      plotOptions: {
+        areaspline: {
+          legend: {
+            borderWidth: 2,
+          },
+          marker: {
+            enabled: false,
+          },
+        },
+        column: {
+          borderWidth: 0,
+        },
+      },
     };
     this.updateChartOptions(options);
   }
@@ -65,8 +94,9 @@ export class RevenueComponent extends HighchartComponent implements OnInit {
   publishChart() {
     let seriesObj = this.generateSeries(this.dataList);
     let { xMin, xMax } = this.getExtremes(seriesObj.revenue);
-    this.updateSeries(seriesObj);
+    seriesObj = this.generateMVA(seriesObj, 7);
     this.axisExtremes(xMin, xMax);
+    this.updateSeries(seriesObj);
   }
 
   override onPeriodChange(period: string) {
