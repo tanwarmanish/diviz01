@@ -19,10 +19,11 @@ export class DatasetService {
     let data: any = [];
     let startDate = moment().subtract(count, 'days');
     data = [...new Array(count)].map((_: any, index: number) => {
+      let date = moment(startDate).add(index, 'days').valueOf();
       return {
-        revenue: +faker.finance.amount(),
-        expense: +faker.finance.amount(),
-        date: moment(startDate).add(index, 'days').format(),
+        revenue: [date, +faker.finance.amount()],
+        expense: [date, +faker.finance.amount()],
+        date,
       };
     });
     return data;

@@ -31,11 +31,11 @@ export class HighchartComponent {
   public chartPeriod = '';
   public chartTypes = '';
   public chartPeriods = '';
-  public defaultRange = 10;
   private _axis: any = {
     xAxis: true,
     yAxis: true,
   };
+
   private chartRef: any = null;
 
   constructor(public cd: ChangeDetectorRef, public dataset: DatasetService) {}
@@ -92,7 +92,7 @@ export class HighchartComponent {
     let series = this.chartOptions.series;
     series.forEach((s: any) => {
       let data = seriesObj[s.key];
-      s.data = data.slice(0, this.defaultRange);
+      s.data = data;
     });
     this.updateChartOptions({ series });
   }
@@ -114,7 +114,7 @@ export class HighchartComponent {
   /* group by */
   groupBy(dataList: any[], key: any = 'week') {
     let months = dataList.map((entry) =>
-      moment(entry.date).startOf(key).format()
+      moment(entry.date).startOf(key).valueOf()
     );
     let slowPtr = 0,
       fastPtr = 0;
@@ -122,7 +122,8 @@ export class HighchartComponent {
       while (months[slowPtr] == months[fastPtr]) {
         if (slowPtr != fastPtr)
           for (let key in dataList[slowPtr]) {
-            if (key != 'date') dataList[slowPtr][key] += dataList[fastPtr][key];
+            if (key != 'date')
+              dataList[slowPtr][key][1] += dataList[fastPtr][key][1];
           }
         fastPtr++;
       }
@@ -166,5 +167,9 @@ export class HighchartComponent {
 
   drillUp() {
     this.chartRef && this.chartRef.drillUp();
+  }
+
+  axisExtremes(min = null, max = null, revert = false) {
+    this.chartRef && this.chartRef.xAxis[0].setExtremes(min, max);
   }
 }
