@@ -34,18 +34,24 @@ export class DatasetService {
       .sort((a, b) => b - a);
 
     return values.map((y, i) => {
-      return {
-        name: stages[i],
-        y,
-      };
+      return { stages: [stages[i], y] };
     });
   }
 
-  generateQuoteStatus(status: string[], count: number) {
-    return status.map((y, i) => {
+  generateQuoteStatus(parent: string[], children: string[]) {
+    return parent.map((pKey, i) => {
+      let data = [...new Array(parent.length)].map((i) =>
+        Math.floor(+faker.finance.amount())
+      );
       return {
-        name: status[i],
-        y: Math.floor(+faker.finance.amount()),
+        key: pKey,
+        value: data.reduce((s, v) => s + v, 0),
+        children: children.map((cKey, j) => {
+          return {
+            key: children[j],
+            value: data[j],
+          };
+        }),
       };
     });
   }

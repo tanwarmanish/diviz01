@@ -54,12 +54,12 @@ export class RevenueComponent extends HighchartComponent implements OnInit {
     this.updateXAxis(seriesObj.date, true);
   }
 
-  onPeriodChange(period: string) {
+  override onPeriodChange(period: string) {
     this.chartPeriod = period;
     this.publishChart();
   }
 
-  onChartChange(type: string) {
+  override onChartChange(type: string) {
     this.chartType = type;
     this.updateChartOptions({ chart: { type } });
   }

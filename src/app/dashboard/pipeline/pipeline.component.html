@@ -1,22 +1,16 @@
 <card-navbar
   title="Pipeline"
-  periods="day|week"
-  icons="funnel|pie"
+  [periods]="chartPeriods"
+  [types]="chartTypes"
+  [activePeriod]="chartPeriod"
+  [activeType]="chartType"
   (changePeriod)="onPeriodChange($event)"
   (changeType)="onChartChange($event)"
 ></card-navbar>
-<chart [dataList]="dataList" [options]="chartOptions"></chart>
-<!-- <div class="entry" *ngFor="let data of summary; let i = index">
-  <p class="heading">{{ data?.value }}</p>
-  <p class="subheading">
-    <span class="text">{{ data?.title }}</span>
-    <span class="percent">{{ data?.progress }}</span>
-  </p>
-  <div class="progress">
-    <div
-      class="progress-bar"
-      [style.width]="data?.progress"
-      [style.background-color]="colors[i]"
-    ></div>
-  </div>
-</div> -->
+<div class="content">
+  <highcharts-chart
+    [Highcharts]="Highcharts"
+    [options]="chartOptions"
+    [style]="chartStyle"
+  ></highcharts-chart>
+</div>

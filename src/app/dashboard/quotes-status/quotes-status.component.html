@@ -1,7 +1,17 @@
 <card-navbar
   title="Quotes Status"
-  periods="day|week"
+  [periods]="chartPeriods"
+  [types]="chartTypes"
+  [activePeriod]="chartPeriod"
+  [activeType]="chartType"
   (changePeriod)="onPeriodChange($event)"
   (changeType)="onChartChange($event)"
 ></card-navbar>
-<chart [dataList]="dataList" [options]="chartOptions"></chart>
+<div class="content">
+  <highcharts-chart
+    [Highcharts]="Highcharts"
+    [options]="chartOptions"
+    [style]="chartStyle"
+    [oneToOne]="true"
+  ></highcharts-chart>
+</div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HighchartComponent } from 'src/app/shared/components/highchart/highchart.component';
 import { DatasetService } from 'src/app/shared/services/faker/dataset.service';
 
 @Component({
@@ -6,35 +7,9 @@ import { DatasetService } from 'src/app/shared/services/faker/dataset.service';
   templateUrl: './pipeline.component.html',
   styleUrls: ['./pipeline.component.css'],
 })
-export class PipelineComponent implements OnInit {
+export class PipelineComponent extends HighchartComponent implements OnInit {
   dataList: any = [];
-  chartOptions = {};
-  chartType = 'funnel';
-  summary = [
-    {
-      value: '100k',
-      title: 'Visitors From USA',
-      progress: '50%',
-    },
-    {
-      value: '1M',
-      title: 'Visitors From Europe',
-      progress: '80%',
-    },
-    {
-      value: '450k',
-      title: 'Visitors From AU',
-      progress: '45%',
-    },
-    {
-      value: '1B',
-      title: 'Visitors From IN',
-      progress: '90%',
-    },
-  ];
-  colors = ['#673ab7', '#4caf50', '#03a9f4', '#607d8b'];
-
-  constructor(private dataset: DatasetService) {}
+  override chartType = 'funnel';
 
   stages = [
     'Leads',
@@ -46,24 +21,29 @@ export class PipelineComponent implements OnInit {
   ngOnInit(): void {
     this.initChartOptions();
     this.dataList = this.dataset.generatePipeline(this.stages);
+    this.publishChart();
   }
 
   initChartOptions() {
-    this.chartOptions = {
-      series: ['name', 'y'],
-      label: {
-        name: 'name',
-        y: 'y',
-        seriesName: 'Total',
-      },
-      chartType: this.chartType,
-      chartOptions: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
+    let options = {
+      series: [
+        {
+          name: 'Pipeline',
+          key: 'stages',
+          data: [],
+        },
+      ],
+      chart: {
+        type: this.chartType,
       },
       plotOptions: this.getPlotOptions(),
     };
+    this.updateChartOptions(options);
+  }
+
+  publishChart() {
+    let seriesObj = this.generateSeries(this.dataList);
+    this.updateSeries(seriesObj);
   }
 
   getPlotOptions() {
@@ -78,35 +58,9 @@ export class PipelineComponent implements OnInit {
             softConnector: true,
           },
           center: ['40%', '40%'],
-          // neckWidth: '30%',
-          // neckHeight: '25%',
-          // width: '70%',
-        },
-      };
-    } else if (type == 'pie') {
-      options = {
-        pie: {
-          allowPointSelect: true,
-          cursor: 'pointer',
-          size: 230.0,
-          center: ['50%', '50%'],
-          dataLabels: {
-            enabled: true,
-            format:
-              '<b>{point.name}</b>: {point.percentage:.1f} % <br>(Total: {point.y})',
-          },
         },
       };
     }
     return options;
-  }
-
-  onPeriodChange(period: string) {
-    console.log(period);
-  }
-
-  onChartChange(type: string) {
-    this.chartType = type;
-    this.initChartOptions();
   }
 }

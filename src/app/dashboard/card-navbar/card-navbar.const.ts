@@ -28,7 +28,7 @@ export const Types = [
   },
   {
     key: 'stacked',
-    icon: 'stacked_bar_chart',
+    icon: 'full_stacked_bar_chart',
   },
   {
     key: 'grouped',

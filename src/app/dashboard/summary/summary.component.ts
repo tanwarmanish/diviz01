@@ -66,8 +66,8 @@ export class SummaryComponent implements OnInit {
       exporting: { enabled: false },
 
       legend: { enabled: false },
-      yAxis: [{ visible: false }],
-      xAxis: [{ visible: false }],
+      yAxis: { visible: false },
+      xAxis: { visible: false },
       plotOptions: {
         areaspline: {
           marker: {

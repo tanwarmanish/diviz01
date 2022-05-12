@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HighchartComponent } from 'src/app/shared/components/highchart/highchart.component';
 import { DatasetService } from 'src/app/shared/services/faker/dataset.service';
 
 @Component({
@@ -6,38 +7,34 @@ import { DatasetService } from 'src/app/shared/services/faker/dataset.service';
   templateUrl: './quotes-status.component.html',
   styleUrls: ['./quotes-status.component.css'],
 })
-export class QuotesStatusComponent implements OnInit {
+export class QuotesStatusComponent
+  extends HighchartComponent
+  implements OnInit
+{
   dataList: any = [];
-  chartOptions = {};
-  chartType = 'pie';
-  xAxis: any = [];
+  override chartType = 'pie';
+  override chartTypes = 'column|stacked|pie';
 
-  constructor(private dataset: DatasetService) {}
-
-  stages = ['Awarded', 'Pending', 'Lost', 'Quoted'];
+  statues = ['Quoted', 'Pending', 'Awarded', 'Lost'];
+  quotesTypes = ['LTL', 'FTL', 'IM', 'LCL'];
   ngOnInit(): void {
-    this.xAxis = this.dataset.getNames(5);
     this.initChartOptions();
-    this.dataList = this.dataset.generateQuoteStatus(this.stages, 5);
+    this.dataList = this.dataset.generateQuoteStatus(
+      this.statues,
+      this.quotesTypes
+    );
+    this.publishChart();
   }
 
   initChartOptions() {
-    this.chartOptions = {
-      series: ['name', 'y'],
-      label: {
-        name: 'name',
-        y: 'y',
-        seriesName: 'Total',
+    let options = {
+      series: [],
+      chart: {
+        type: this.chartType,
       },
-      xAxis: this.xAxis,
-      chartType: this.chartType,
-      chartOptions: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-      },
-      plotOptions: this.getPlotOptions(),
+      plotOptions: {},
     };
+    this.updateChartOptions(options);
   }
 
   getPlotOptions() {
@@ -49,6 +46,17 @@ export class QuotesStatusComponent implements OnInit {
           stacking: 'normal',
           dataLabels: {
             enabled: true,
+            format: '{point.y}',
+          },
+        },
+      };
+    } else if (type == 'column') {
+      options = {
+        column: {
+          stacking: false,
+          dataLabels: {
+            enabled: true,
+            format: '{point.y}',
           },
         },
       };
@@ -70,12 +78,71 @@ export class QuotesStatusComponent implements OnInit {
     return options;
   }
 
-  onPeriodChange(period: string) {
-    console.log(period);
+  publishChart() {
+    let type = this.chartType === 'stacked' ? 'column' : this.chartType;
+    let options = {
+      plotOptions: this.getPlotOptions(),
+      chart: { type },
+    };
+    switch (this.chartType) {
+      case 'column':
+      case 'stacked': {
+        this.axis(true, true);
+        options = Object.assign(options, this.generateColumnsData());
+        break;
+      }
+      case 'pie': {
+        this.axis(false, false);
+        options = Object.assign(options, this.generatePieData());
+        break;
+      }
+    }
+    this.updateChartOptions(options);
   }
 
-  onChartChange(type: string) {
+  override onChartChange(type: string) {
     this.chartType = type;
-    this.initChartOptions();
+    this.publishChart();
+  }
+
+  generateColumnsData() {
+    let arr = this.copy(this.dataList);
+    let xAxis = arr.map((o: any) => o.key);
+    let children = arr[0].children.map((o: any) => o.key);
+    let series = children.map((k: string) =>
+      Object.assign({ name: k, data: [] })
+    );
+    for (let pIndex in arr) {
+      for (let cIndex in arr[pIndex].children) {
+        series[cIndex].data[pIndex] = arr[pIndex].children[cIndex].value;
+      }
+    }
+    return { series, xAxis: { categories: xAxis } };
+  }
+
+  generatePieData() {
+    let arr = this.copy(this.dataList);
+    let series = [
+      {
+        name: 'Quotes',
+        colorByPoint: true,
+        data: arr.map((o: any) => {
+          return {
+            name: o.key,
+            y: o.value,
+            drilldown: o.children.length ? o.key : null,
+          };
+        }),
+      },
+    ];
+    return {
+      series,
+      chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie',
+      },
+    };
   }
 }

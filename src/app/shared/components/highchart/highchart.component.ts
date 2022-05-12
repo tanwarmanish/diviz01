@@ -26,13 +26,21 @@ export class HighchartComponent {
     },
   };
   public chartStyle = 'width: 100%; height: 360px; display: block';
-  public chartType = 'line';
-  public chartPeriod = 'day';
+  public chartType = '';
+  public chartPeriod = '';
   public chartTypes = '';
   public chartPeriods = '';
   public defaultRange = 10;
+  private _axis: any = {
+    xAxis: true,
+    yAxis: true,
+  };
 
   constructor(public cd: ChangeDetectorRef, public dataset: DatasetService) {}
+
+  public onPeriodChange(period: string) {}
+
+  public onChartChange(type: string) {}
 
   copy(data: any) {
     return JSON.parse(JSON.stringify(data));
@@ -64,10 +72,13 @@ export class HighchartComponent {
   }
 
   updateChartOptions(options: any) {
-    this.chartOptions = {
+    let chartOptions = {
       ...this.chartOptions,
       ...options,
     };
+    // toggle axis if required
+    chartOptions = this.toggleAxis(chartOptions);
+    this.chartOptions = chartOptions;
   }
 
   updateSeries(seriesObj: any) {
@@ -131,7 +142,18 @@ export class HighchartComponent {
       }
       // return 1;
     });
-    console.log(series);
     return series;
+  }
+
+  axis(xAxis = true, yAxis = true) {
+    this._axis = { xAxis, yAxis };
+  }
+
+  toggleAxis(options: any) {
+    let xAxis = options['xAxis'] || {};
+    let yAxis = options['yAxis'] || {};
+    xAxis = { ...xAxis, visible: this._axis.xAxis };
+    yAxis = { ...yAxis, visible: this._axis.yAxis };
+    return { ...options, xAxis, yAxis };
   }
 }

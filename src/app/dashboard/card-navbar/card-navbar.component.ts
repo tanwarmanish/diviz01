@@ -34,14 +34,20 @@ export class CardNavbarComponent implements OnInit {
 
   ngOnChanges(changes: any) {
     if (changes && changes.periods) {
-      const periodsArr = this.periods.toLowerCase().split('|');
+      const periodsArr = this.periods
+        .toLowerCase()
+        .split('|')
+        .filter((i) => i);
       this.periodsList = periodsArr.map((key) =>
         Periods.find((period) => period.key == key)
       );
     }
 
-    if (changes && changes.types && changes.types.currentValue) {
-      let typesArr = this.types.split('|');
+    if (changes && changes.types) {
+      let typesArr = this.types
+        .toLowerCase()
+        .split('|')
+        .filter((i) => i);
       this.typesList = typesArr.map((key) =>
         Types.find((type) => type.key == key)
       );
