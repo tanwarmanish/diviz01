@@ -6,8 +6,8 @@ import { Types, Periods } from './card-navbar.const';
   styleUrls: ['./card-navbar.component.css'],
 })
 export class CardNavbarComponent implements OnInit {
-  periodsList: any[] = Periods;
-  typesList: any[] = Types;
+  periodsList: any[] = [];
+  typesList: any[] = [];
 
   @Input() title = 'Card Navbar';
   @Input() activeType: string = '';

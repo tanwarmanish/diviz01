@@ -9,6 +9,10 @@
     ></select-dropdown>
     <span class="view" *ngIf="typesList?.length">
       <ng-container *ngFor="let type of typesList; let i = index">
+        <mat-divider
+          [vertical]="true"
+          *ngIf="i != 0 && i != typesList.length - 1"
+        ></mat-divider>
         <span
           class="icon material-symbols-outlined"
           [class.active]="activeType == type.key"
