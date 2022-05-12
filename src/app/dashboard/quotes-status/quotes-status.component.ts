@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { HighchartComponent } from 'src/app/shared/components/highchart/highchart.component';
-import { DatasetService } from 'src/app/shared/services/faker/dataset.service';
 
 @Component({
   selector: 'quote-status',
@@ -12,7 +11,7 @@ export class QuotesStatusComponent
   implements OnInit
 {
   dataList: any = [];
-  override chartType = 'pie';
+  override chartType = 'column';
   override chartTypes = 'column|stacked|pie';
 
   statues = ['Quoted', 'Pending', 'Awarded', 'Lost'];
@@ -81,9 +80,11 @@ export class QuotesStatusComponent
   publishChart() {
     let type = this.chartType === 'stacked' ? 'column' : this.chartType;
     let options = {
+      drilldown: {},
       plotOptions: this.getPlotOptions(),
       chart: { type },
     };
+    this.drillUp();
     switch (this.chartType) {
       case 'column':
       case 'stacked': {
@@ -135,8 +136,19 @@ export class QuotesStatusComponent
         }),
       },
     ];
+
+    let drilldown = arr.map((o: any) => {
+      return {
+        name: o.key,
+        id: o.key,
+        data: o.children.map((c: any) => {
+          return [c.key, c.value];
+        }),
+      };
+    });
     return {
       series,
+      drilldown: { series: drilldown },
       chart: {
         plotBackgroundColor: null,
         plotBorderWidth: null,

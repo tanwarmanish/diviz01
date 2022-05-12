@@ -4,11 +4,12 @@ import * as moment from 'moment';
 
 import * as Highcharts from 'highcharts';
 import Exporting from 'highcharts/modules/exporting';
-import funnel from 'highcharts/modules/funnel';
-
+import Funnel from 'highcharts/modules/funnel';
+import Drilldown from 'highcharts/modules/drilldown';
 /* init */
-funnel(Highcharts);
+Funnel(Highcharts);
 Exporting(Highcharts);
+Drilldown(Highcharts);
 
 @Component({ template: '' })
 export class HighchartComponent {
@@ -35,12 +36,17 @@ export class HighchartComponent {
     xAxis: true,
     yAxis: true,
   };
+  private chartRef: any = null;
 
   constructor(public cd: ChangeDetectorRef, public dataset: DatasetService) {}
 
   public onPeriodChange(period: string) {}
 
   public onChartChange(type: string) {}
+
+  public chartInstance($event: any) {
+    this.chartRef = $event;
+  }
 
   copy(data: any) {
     return JSON.parse(JSON.stringify(data));
@@ -79,6 +85,7 @@ export class HighchartComponent {
     // toggle axis if required
     chartOptions = this.toggleAxis(chartOptions);
     this.chartOptions = chartOptions;
+    if (chartOptions.chart.type == 'pie') console.log(chartOptions);
   }
 
   updateSeries(seriesObj: any) {
@@ -155,5 +162,9 @@ export class HighchartComponent {
     xAxis = { ...xAxis, visible: this._axis.xAxis };
     yAxis = { ...yAxis, visible: this._axis.yAxis };
     return { ...options, xAxis, yAxis };
+  }
+
+  drillUp() {
+    this.chartRef && this.chartRef.drillUp();
   }
 }
