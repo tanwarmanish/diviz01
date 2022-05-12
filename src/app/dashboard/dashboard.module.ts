@@ -14,7 +14,6 @@ import { SummaryComponent } from './summary/summary.component';
 @NgModule({
   declarations: [
     DashboardComponent,
-    CardsComponent,
     RevenueComponent,
     PipelineComponent,
     QuotesStatusComponent,
