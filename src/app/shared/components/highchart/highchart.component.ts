@@ -36,7 +36,7 @@ export class HighchartComponent {
     yAxis: true,
   };
 
-  private chartRef: any = null;
+  public chartRef: any = null;
 
   constructor(public cd: ChangeDetectorRef, public dataset: DatasetService) {}
 
@@ -88,11 +88,15 @@ export class HighchartComponent {
     if (chartOptions.chart.type == 'pie') console.log(chartOptions);
   }
 
-  updateSeries(seriesObj: any) {
+  updateSeries(seriesObj: any, hidden: any = {}) {
     let series = this.chartOptions.series;
     series.forEach((s: any) => {
-      let data = seriesObj[s.key];
-      s.data = data;
+      console.log(s.key);
+      if (seriesObj.hasOwnProperty(s.key)) {
+        let data = seriesObj[s.key];
+        s.data = data;
+        s.visible = !hidden[s.key];
+      }
     });
     this.updateChartOptions({ series });
   }

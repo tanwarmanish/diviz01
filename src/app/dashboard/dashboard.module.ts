@@ -9,6 +9,7 @@ import { CardFooterComponent } from './card-footer/card-footer.component';
 import { SharedModule } from '../shared/shared.module';
 import { QuotesStatusComponent } from './quotes-status/quotes-status.component';
 import { SummaryComponent } from './summary/summary.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,12 @@ import { SummaryComponent } from './summary/summary.component';
     CardFooterComponent,
     SummaryComponent,
   ],
-  imports: [CommonModule, DashboardRoutingModule, SharedModule],
+  imports: [
+    CommonModule,
+    DashboardRoutingModule,
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
 })
 export class DashboardModule {}

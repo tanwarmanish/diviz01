@@ -6,7 +6,9 @@
   [activePeriod]="chartPeriod"
   (changePeriod)="onPeriodChange($event)"
   (changeType)="onChartChange($event)"
-></card-navbar>
+>
+  <ng-container *ngTemplateOutlet="periodControls"></ng-container>
+</card-navbar>
 <div class="content">
   <highcharts-chart
     [Highcharts]="Highcharts"
@@ -15,3 +17,31 @@
     (chartInstance)="chartInstance($event)"
   ></highcharts-chart>
 </div>
+
+<!-- period controls  -->
+<ng-template #periodControls>
+  <div
+    class="period-controls"
+    *ngFor="let option of averagesList; let i = index"
+  >
+    <label>{{ option?.title }}</label>
+    <div>
+      <input
+        type="text"
+        id="input-field"
+        [(ngModel)]="option.period"
+        [disabled]="option.checked"
+      />
+      <div class="switch">
+        <label>
+          <input
+            type="checkbox"
+            [checked]="option.checked"
+            (change)="toggleAverages(option, i)"
+          />
+          <span class="lever"> </span>
+        </label>
+      </div>
+    </div>
+  </div>
+</ng-template>

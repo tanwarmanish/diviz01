@@ -9,10 +9,28 @@ import { DatasetService } from 'src/app/shared/services/faker/dataset.service';
 })
 export class RevenueComponent extends HighchartComponent implements OnInit {
   dataList: any = [];
+  seriesObj: any = null;
   override chartType = 'column';
   override chartPeriod = 'day';
   override chartTypes = 'column|spline';
   override chartPeriods = 'day|week|month';
+
+  averagesList: any[] = [
+    {
+      key: 'avgrevenue',
+      src: 'revenue',
+      title: 'Average Revenue',
+      period: 7,
+      checked: false,
+    },
+    {
+      key: 'avgexpense',
+      src: 'expense',
+      title: 'Average Expense',
+      period: 7,
+      checked: false,
+    },
+  ];
 
   ngOnInit(): void {
     this.dataList = this.dataset.generateRevenueExpense(365);
@@ -39,6 +57,8 @@ export class RevenueComponent extends HighchartComponent implements OnInit {
           type: 'areaspline',
           data: [],
           enableMouseTracking: false,
+          showInLegend: false,
+          visible: false,
         },
         {
           name: 'Average Revenue',
@@ -47,6 +67,8 @@ export class RevenueComponent extends HighchartComponent implements OnInit {
           type: 'areaspline',
           data: [],
           enableMouseTracking: false,
+          showInLegend: false,
+          visible: false,
         },
         {
           name: 'Revenue',
@@ -92,11 +114,11 @@ export class RevenueComponent extends HighchartComponent implements OnInit {
   }
 
   publishChart() {
-    let seriesObj = this.generateSeries(this.dataList);
-    let { xMin, xMax } = this.getExtremes(seriesObj.revenue);
-    seriesObj = this.generateMVA(seriesObj, 7);
+    this.seriesObj = this.generateSeries(this.dataList);
+    let { xMin, xMax } = this.getExtremes(this.seriesObj.revenue);
     this.axisExtremes(xMin, xMax);
-    this.updateSeries(seriesObj);
+    this.updateSeries(this.seriesObj);
+    this.publishAverages();
   }
 
   override onPeriodChange(period: string) {
@@ -107,5 +129,35 @@ export class RevenueComponent extends HighchartComponent implements OnInit {
   override onChartChange(type: string) {
     this.chartType = type;
     this.updateChartOptions({ chart: { type } });
+  }
+
+  toggleAverages(option: any, index: number) {
+    let { period, checked } = option;
+    // toggle state
+    checked = !checked;
+    this.averagesList[index] = { ...option, checked };
+
+    // toggle average series
+    if (!this.seriesObj) return;
+    this.publishAverages();
+  }
+
+  publishAverages() {
+    let avgSeriesObj: any = {};
+    let avgHiddenObj: any = {};
+    for (let index in this.averagesList) {
+      let { key, src, checked, period } = this.averagesList[index];
+      avgSeriesObj[key] = [];
+      avgHiddenObj[key] = !checked;
+      if (checked) {
+        let payload: any = {
+          [src]: this.seriesObj[src],
+          date: this.seriesObj.date,
+        };
+        avgSeriesObj[key] = this.generateMVA(payload, period)[key];
+      }
+    }
+    // update series
+    this.updateSeries(avgSeriesObj, avgHiddenObj);
   }
 }

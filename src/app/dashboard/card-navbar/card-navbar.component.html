@@ -1,6 +1,7 @@
 <p class="heading">
   <span class="title">{{ title }}</span>
   <span class="controls">
+    <ng-content></ng-content>
     <select-dropdown
       *ngIf="activePeriod"
       [dataList]="periodsList"
