@@ -43,10 +43,27 @@ export class RevenueComponent extends HighchartComponent implements OnInit {
 
   initChartOptions() {
     let options = {
+      // tooltip: {
+      //   pointFormat: 'Lon: {point.x}<br>' + 'Lat: {point.y}<br>',
+      // },
       xAxis: {
         type: 'datetime',
         labels: {
           format: '{value:%d-%m-%Y}',
+        },
+        crosshair: {
+          zIndex: 5,
+          dashStyle: 'dot',
+          snap: false,
+          color: 'black',
+        },
+      },
+      yAxis: {
+        crosshair: {
+          zIndex: 5,
+          dashStyle: 'dot',
+          snap: false,
+          color: 'black',
         },
       },
       series: [
