@@ -43,9 +43,6 @@ export class RevenueComponent extends HighchartComponent implements OnInit {
 
   initChartOptions() {
     let options = {
-      // tooltip: {
-      //   pointFormat: 'Lon: {point.x}<br>' + 'Lat: {point.y}<br>',
-      // },
       xAxis: {
         type: 'datetime',
         labels: {
@@ -117,6 +114,10 @@ export class RevenueComponent extends HighchartComponent implements OnInit {
         column: {
           borderWidth: 0,
         },
+      },
+      tooltip: {
+        shared: true,
+        followPointer: true,
       },
     };
     this.updateChartOptions(options);
