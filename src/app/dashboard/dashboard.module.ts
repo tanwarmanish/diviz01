@@ -10,6 +10,7 @@ import { SharedModule } from '../shared/shared.module';
 import { QuotesStatusComponent } from './quotes-status/quotes-status.component';
 import { SummaryComponent } from './summary/summary.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HeatmapComponent } from './heatmap/heatmap.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CardNavbarComponent,
     CardFooterComponent,
     SummaryComponent,
+    HeatmapComponent
   ],
   imports: [
     CommonModule,

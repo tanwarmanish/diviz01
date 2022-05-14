@@ -91,7 +91,6 @@ export class HighchartComponent {
   updateSeries(seriesObj: any, hidden: any = {}) {
     let series = this.chartOptions.series;
     series.forEach((s: any) => {
-      console.log(s.key);
       if (seriesObj.hasOwnProperty(s.key)) {
         let data = seriesObj[s.key];
         s.data = data;

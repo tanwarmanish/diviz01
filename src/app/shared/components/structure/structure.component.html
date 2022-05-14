@@ -1,0 +1,22 @@
+<div [ngClass]="parentClass">
+  <div [ngClass]="child" *ngFor="let child of children; let i = index">
+    <div class="card">
+      <ng-container *ngIf="children.length == 1">
+        <ng-content></ng-content>
+      </ng-container>
+      <ng-container *ngIf="i + 1 == 1">
+        <ng-content select="[slot=1]"></ng-content>
+      </ng-container>
+      <ng-container *ngIf="i + 1 == 2">
+        <ng-content select="[slot=2]"></ng-content>
+      </ng-container>
+      <ng-container *ngIf="i + 1 == 3">
+        <ng-content select="[slot=3]"></ng-content>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<!-- <ng-template #ngContent>
+  <ng-content select="[slot=first]"></ng-content>
+</ng-template> -->

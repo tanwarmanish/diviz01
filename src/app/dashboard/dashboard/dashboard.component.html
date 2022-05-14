@@ -1,28 +1,22 @@
 <div class="container-fluid">
   <h1 class="title">Dashboard</h1>
 
+  <!-- heatmap  -->
+  <structure>
+    <heatmap></heatmap>
+  </structure>
+
   <!-- summary cards  -->
   <app-summary></app-summary>
 
   <!-- revenue  -->
-  <div class="row">
-    <div class="col m12">
-      <div class="card">
-        <app-revenue></app-revenue>
-      </div>
-    </div>
-  </div>
+  <structure>
+    <app-revenue></app-revenue>
+  </structure>
 
-  <div class="row">
-    <div class="col m6">
-      <div class="card">
-        <app-pipeline></app-pipeline>
-      </div>
-    </div>
-    <div class="col m6">
-      <div class="card">
-        <quote-status></quote-status>
-      </div>
-    </div>
-  </div>
+  <!-- pipeline & quote status  -->
+  <structure childClass="col m6|col m6">
+    <app-pipeline slot="1"></app-pipeline>
+    <quote-status slot="2"></quote-status>
+  </structure>
 </div>

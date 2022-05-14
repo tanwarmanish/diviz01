@@ -6,15 +6,22 @@ import { ChartComponent } from './components/chart/chart.component';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { DatasetService } from './services/faker/dataset.service';
 import { HighchartComponent } from './components/highchart/highchart.component';
+import { StructureComponent } from './components/structure/structure.component';
 
 @NgModule({
-  declarations: [SelectDropdownComponent, ChartComponent, HighchartComponent],
+  declarations: [
+    SelectDropdownComponent,
+    ChartComponent,
+    HighchartComponent,
+    StructureComponent,
+  ],
   imports: [CommonModule, ...MaterialImports, HighchartsChartModule],
   exports: [
     ...MaterialImports,
     SelectDropdownComponent,
     ChartComponent,
     HighchartsChartModule,
+    StructureComponent,
   ],
   providers: [DatasetService],
 })
