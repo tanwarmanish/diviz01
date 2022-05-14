@@ -25,6 +25,7 @@ export class SelectDropdownComponent implements OnInit {
   @Input() dataKeys = { key: 'key', value: 'value' };
   @Input() selectedValue: string = '';
   @Input() selectedValueLabel: string = '';
+  @Input() width: string = '';
   @Output() onSelectionChange = new EventEmitter();
 
   constructor() {}

@@ -6,10 +6,17 @@ import * as Highcharts from 'highcharts';
 import Exporting from 'highcharts/modules/exporting';
 import Funnel from 'highcharts/modules/funnel';
 import Drilldown from 'highcharts/modules/drilldown';
+import highChartsTilemap from 'highcharts/modules/tilemap';
+import highChartsHeatmap from 'highcharts/modules/heatmap';
+import highchartsMore from 'highcharts/highcharts-more';
+
 /* init */
 Funnel(Highcharts);
 Exporting(Highcharts);
 Drilldown(Highcharts);
+highchartsMore(Highcharts);
+highChartsHeatmap(Highcharts);
+highChartsTilemap(Highcharts);
 
 @Component({ template: '' })
 export class HighchartComponent {

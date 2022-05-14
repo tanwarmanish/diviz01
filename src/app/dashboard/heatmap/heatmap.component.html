@@ -1,1 +1,22 @@
-Heatmap
+<card-navbar title="Origin">
+  <select-dropdown
+    [dataList]="[
+      { key: 'customer', value: 'Customers' },
+      { key: 'carrier', value: 'Carriers' }
+    ]"
+    [dataKeys]="{ key: 'key', value: 'value' }"
+    [selectedValue]="activeType"
+    width="115px"
+    (onSelectionChange)="onTypeChange($event)"
+  >
+  </select-dropdown>
+</card-navbar>
+<div class="content">
+  <highcharts-chart
+    [Highcharts]="Highcharts"
+    [options]="chartOptions"
+    [style]="chartStyle"
+    (chartInstance)="chartInstance($event)"
+  >
+  </highcharts-chart>
+</div>

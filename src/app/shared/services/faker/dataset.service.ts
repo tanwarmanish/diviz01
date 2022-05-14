@@ -60,4 +60,10 @@ export class DatasetService {
   getNames(count: number) {
     return [...new Array(count)].map((i) => faker.name.firstName());
   }
+
+  generateHeatmapData(states: any[]) {
+    return states.map((state) => {
+      return { ...state, value: Math.floor(+faker.finance.amount()) };
+    });
+  }
 }
