@@ -12,9 +12,11 @@ export class HeatmapComponent extends HighchartComponent implements OnInit {
     { key: 'customer', value: 'Customers' },
     { key: 'carrier', value: 'Carriers' },
   ];
+  typeKeys: any = [];
   activeType: string = 'customer';
   seriesData: any = {};
   colorAxis: any = {};
+  tracking: boolean = false;
 
   ngOnInit(): void {
     this.seriesData = this.types.reduce(
@@ -27,10 +29,13 @@ export class HeatmapComponent extends HighchartComponent implements OnInit {
     this.colorAxis = this.types.reduce(
       (o: any, type: any) =>
         Object.assign(o, {
-          [type.key]: this.generateColorAxis(this.seriesData[type.key]),
+          [type.key]: this.generateColorAxis(type.key),
         }),
       {}
     );
+    this.seriesData['trackorder'] = [];
+    this.colorAxis['trackorder'] = {};
+    this.typeKeys = Object.keys(this.seriesData);
     this.initChartOptions();
   }
 
@@ -48,7 +53,7 @@ export class HeatmapComponent extends HighchartComponent implements OnInit {
       },
       yAxis: {
         title: { text: '' },
-        visible: true,
+        visible: false,
         labels: { enabled: false },
         tickLength: 0,
         gridLineWidth: 0,
@@ -59,7 +64,7 @@ export class HeatmapComponent extends HighchartComponent implements OnInit {
         series: {
           dataLabels: {
             enabled: true,
-            format: '{point.hc-a2}',
+            format: '{point.hc-a2}<br>{point.path}',
             color: '#000000',
             style: {
               textOutline: false,
@@ -90,6 +95,16 @@ export class HeatmapComponent extends HighchartComponent implements OnInit {
               'The Carriers originating from <b> {point.name}</b> are <b>{point.value}</b>',
           },
         },
+        {
+          name: 'Order',
+          showInLegend: false,
+          data: this.seriesData['trackorder'],
+          visible: false,
+          tooltip: {
+            headerFormat: '',
+            pointFormat: '<b>{point.name}: {point.value}</b>',
+          },
+        },
       ],
     };
     this.updateChartOptions(options);
@@ -105,7 +120,9 @@ export class HeatmapComponent extends HighchartComponent implements OnInit {
     ]);
   }
 
-  generateColorAxis(series: any) {
+  generateColorAxis(key: string) {
+    if (key === 'trackorder') return this.generateColorAxisPath();
+    const series = this.seriesData[key];
     let colors = ['#F9EDB3', '#FFC428', '#FF7987', '#FF2371'];
     let bins = this.generateBins(series, colors.length);
     let axis = colors.map((color: string, i: number) => {
@@ -121,7 +138,19 @@ export class HeatmapComponent extends HighchartComponent implements OnInit {
       };
       return payload;
     });
-    console.log(axis);
+    return axis;
+  }
+
+  generateColorAxisPath() {
+    let axis = [0].map(() => {
+      let payload = {
+        from: Number.NEGATIVE_INFINITY,
+        to: Number.POSITIVE_INFINITY,
+        name: '',
+        color: '#000',
+      };
+      return payload;
+    });
     return axis;
   }
 
@@ -130,10 +159,90 @@ export class HeatmapComponent extends HighchartComponent implements OnInit {
     this.chartRef.colorAxis[0].update({
       dataClasses: this.colorAxis[this.activeType],
     });
-
-    let index = type == 'customer' ? 0 : 1;
-    [0, 1].map((i: number) => {
-      this.chartRef.series[i].update({ visible: i == index });
+    let index = this.typeKeys.indexOf(type);
+    this.typeKeys.map((k: any, i: number) => {
+      let payload: any = {
+        visible: i == index,
+        data: i == index ? this.seriesData[k] : [],
+      };
+      this.chartRef.series[i].update(payload);
     });
+  }
+
+  loadQuote(id: any) {
+    let key = 'trackorder';
+    this.tracking = true;
+    this.seriesData[key] = this.trackQuote(id);
+    this.colorAxis[key] = this.generateColorAxis(key);
+    this.onTypeChange(key);
+  }
+  closeQuote() {
+    this.tracking = false;
+    this.seriesData['trackorder'] = [];
+    this.colorAxis['trackorder'] = [];
+    this.onTypeChange('customer');
+  }
+
+  trackQuote(id: number) {
+    let path: any = [
+      {
+        key: 'ND',
+        title: 'O',
+        src: 'origin',
+      },
+      {
+        key: 'WY',
+        title: 'S1',
+        src: 'stop',
+      },
+      {
+        key: 'CO',
+        title: 'S2',
+        src: 'stop',
+      },
+      {
+        key: 'UT',
+        title: 'S3',
+        src: 'stop',
+      },
+      {
+        key: 'OK',
+        title: 'S4',
+        src: 'stop',
+      },
+      {
+        key: 'LA',
+        title: 'S5',
+        src: 'stop',
+      },
+      {
+        key: 'MS',
+        title: 'S6',
+        src: 'stop',
+      },
+      {
+        key: 'AL',
+        title: 'S7',
+        src: 'stop',
+      },
+      {
+        key: 'GA',
+        title: 'S8',
+        src: 'stop',
+      },
+      {
+        key: 'FL',
+        title: 'D',
+        src: 'dest',
+      },
+    ];
+    const colors: any = {
+      rest: '#000',
+      origin: '#2ecc71',
+      stop: '#1abc9c',
+      dest: '#e74c3c',
+    };
+    path = path.map((p: any) => Object.assign(p, { color: colors[p.src] }));
+    return this.dataset.generateHeatmapData(STATES, path);
   }
 }

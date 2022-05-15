@@ -61,9 +61,23 @@ export class DatasetService {
     return [...new Array(count)].map((i) => faker.name.firstName());
   }
 
-  generateHeatmapData(states: any[]) {
+  generateHeatmapData(states: any[], path: any = null) {
+    let stateKeys = path ? path.map((p: any) => p.key) : [];
     return states.map((state) => {
-      return { ...state, value: Math.floor(+faker.finance.amount()) };
+      let value = Math.floor(+faker.finance.amount(1));
+      let color = null;
+      let title = '';
+      // if track order
+      if (path) {
+        let index = stateKeys.indexOf(state['hc-a2']);
+        if (index + 1) {
+          value = 1000;
+          color = path[index].color;
+          title = `( ${path[index].title} )`;
+        } else value = 0;
+      }
+
+      return { ...state, value, color, path: title };
     });
   }
 }

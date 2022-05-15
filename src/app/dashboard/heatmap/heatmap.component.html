@@ -1,4 +1,30 @@
-<card-navbar title="Origin">
+<card-navbar [title]="tracking ? 'Order' : 'Origin'">
+  <div class="input-field">
+    <i
+      class="material-icons prefix"
+      (click)="loadQuote(quoteId.value)"
+      *ngIf="!tracking"
+    >
+      search
+    </i>
+    <i
+      class="material-icons prefix"
+      (click)="quoteId.value = ''; closeQuote()"
+      *ngIf="tracking"
+    >
+      close
+    </i>
+    <input
+      id="icon_prefix"
+      type="text"
+      class="validate"
+      maxlength="7"
+      #quoteId
+      placeholder="Quote Id"
+      [disabled]="tracking"
+    />
+  </div>
+
   <select-dropdown
     [dataList]="[
       { key: 'customer', value: 'Customers' },
@@ -11,7 +37,7 @@
   >
   </select-dropdown>
 </card-navbar>
-<div class="content">
+<div class="content" [class.heatmap-no-legend]="tracking">
   <highcharts-chart
     [Highcharts]="Highcharts"
     [options]="chartOptions"

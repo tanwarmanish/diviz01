@@ -81,3 +81,7 @@ body {
 input:disabled {
   cursor: no-drop;
 }
+
+.heatmap-no-legend .highcharts-legend rect {
+  width: 0px;
+}
