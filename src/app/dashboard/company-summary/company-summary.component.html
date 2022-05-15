@@ -4,11 +4,14 @@
     <h4>
       <span>{{ entry?.title }}</span>
       <span class="smaller">
-        {{ "" | percent: entry.value:entry.total }}%
+        {{ "" | percent: entry.value:entry.total }}% (Total: {{ entry?.total }})
       </span>
     </h4>
     <div class="progress">
-      <div class="determinate" style="width: {{ '' | percent: entry.value:entry.total }}%"></div>
+      <div
+        class="determinate"
+        style="width: {{ '' | percent: entry.value:entry.total }}%"
+      ></div>
     </div>
     <span class="helper-text">
       <span

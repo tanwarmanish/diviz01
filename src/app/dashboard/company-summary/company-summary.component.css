@@ -1,6 +1,5 @@
 .entry {
-  padding: 10px 15px;
-  padding-bottom: 15px;
+  padding: 10px 20px;
   margin-bottom: 10px;
   background: rgba(255, 255, 255, 0.22);
   border-radius: 16px;
@@ -23,6 +22,7 @@
   letter-spacing: 1px;
   display: flex;
   justify-content: space-between;
+  margin-bottom:12px;
 }
 .entry .smaller {
   font-size: 12px;
@@ -30,7 +30,7 @@
   margin-right: 20px;
 }
 .entry .progress {
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
 }
 .entry .helper-text {

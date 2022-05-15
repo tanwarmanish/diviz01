@@ -26,11 +26,18 @@ export class CompanySummaryComponent
       rightLabel: 'Incomplete',
     },
     {
-      title: 'Contacts',
+      title: 'Companies',
       value: 342,
       total: 500,
-      leftLabel: 'Active',
-      rightLabel: 'Inactive',
+      leftLabel: 'Customers',
+      rightLabel: 'Carriers',
+    },
+    {
+      title: 'Contacts',
+      value: 2908,
+      total: 4000,
+      leftLabel: 'Customers',
+      rightLabel: 'Carriers',
     },
     {
       title: 'Meetings',
@@ -40,6 +47,5 @@ export class CompanySummaryComponent
       rightLabel: 'In Person',
     },
   ];
-  ngOnInit(): void { }
-  
+  ngOnInit(): void {}
 }
