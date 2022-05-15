@@ -1,4 +1,4 @@
-<div [ngClass]="parentClass">
+<div [ngClass]="parentClass" class="group">
   <div [ngClass]="child" *ngFor="let child of children; let i = index">
     <div class="card">
       <ng-container *ngIf="children.length == 1">

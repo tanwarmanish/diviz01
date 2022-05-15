@@ -1,11 +1,6 @@
 <div class="container-fluid">
   <h1 class="title">Dashboard</h1>
 
-  <!-- heatmap  -->
-  <structure childClass="col m8">
-    <heatmap></heatmap>
-  </structure>
-
   <!-- summary cards  -->
   <app-summary></app-summary>
 
@@ -18,5 +13,11 @@
   <structure childClass="col m6|col m6">
     <app-pipeline slot="1"></app-pipeline>
     <quote-status slot="2"></quote-status>
+  </structure>
+
+  <!-- heatmap  -->
+  <structure childClass="col m8|col m4">
+    <heatmap slot="1"></heatmap>
+    <company-summary slot="2"></company-summary>
   </structure>
 </div>

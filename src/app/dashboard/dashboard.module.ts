@@ -11,6 +11,7 @@ import { QuotesStatusComponent } from './quotes-status/quotes-status.component';
 import { SummaryComponent } from './summary/summary.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeatmapComponent } from './heatmap/heatmap.component';
+import { CompanySummaryComponent } from './company-summary/company-summary.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { HeatmapComponent } from './heatmap/heatmap.component';
     CardNavbarComponent,
     CardFooterComponent,
     SummaryComponent,
-    HeatmapComponent
+    HeatmapComponent,
+    CompanySummaryComponent,
   ],
   imports: [
     CommonModule,

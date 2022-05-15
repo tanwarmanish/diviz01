@@ -7,6 +7,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { DatasetService } from './services/faker/dataset.service';
 import { HighchartComponent } from './components/highchart/highchart.component';
 import { StructureComponent } from './components/structure/structure.component';
+import { PercentPipe } from './percent.pipe';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { StructureComponent } from './components/structure/structure.component';
     ChartComponent,
     HighchartComponent,
     StructureComponent,
+    PercentPipe,
   ],
   imports: [CommonModule, ...MaterialImports, HighchartsChartModule],
   exports: [
@@ -22,6 +24,7 @@ import { StructureComponent } from './components/structure/structure.component';
     ChartComponent,
     HighchartsChartModule,
     StructureComponent,
+    PercentPipe,
   ],
   providers: [DatasetService],
 })

@@ -1,0 +1,23 @@
+<card-navbar title="Summary"></card-navbar>
+<div class="content">
+  <div class="entry" *ngFor="let entry of dataList">
+    <h4>
+      <span>{{ entry?.title }}</span>
+      <span class="smaller">
+        {{ "" | percent: entry.value:entry.total }}%
+      </span>
+    </h4>
+    <div class="progress">
+      <div class="determinate" style="width: {{ '' | percent: entry.value:entry.total }}%"></div>
+    </div>
+    <span class="helper-text">
+      <span
+        >{{ entry?.leftLabel }} <b>({{ entry?.value }})</b></span
+      >
+      <span
+        >{{ entry?.rightLabel }}
+        <b>({{ entry?.total - entry?.value }})</b></span
+      >
+    </span>
+  </div>
+</div>

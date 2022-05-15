@@ -1,6 +1,7 @@
 .container-fluid {
   width: 80%;
   margin: 30px auto;
+  padding-bottom:50px;
 }
 .title {
   font-size: 20px;
