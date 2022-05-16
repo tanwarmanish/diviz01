@@ -22,7 +22,7 @@
   letter-spacing: 1px;
   display: flex;
   justify-content: space-between;
-  margin-bottom:12px;
+  margin-bottom: 12px;
 }
 .entry .smaller {
   font-size: 12px;
@@ -43,4 +43,23 @@
   color: #848484;
   margin-top: 10px;
   font-size: 12px;
+}
+.entry p {
+  border: 1px solid white;
+}
+.entry p span {
+  margin-left: 5px;
+  font-size: 12px;
+}
+
+.highlight {
+  background: #f4f1f1;
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid #848484 !important;
+  width: 100%;
+  margin-left: -10px;
+  padding-left: 10px;
 }

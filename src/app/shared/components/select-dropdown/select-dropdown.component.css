@@ -4,3 +4,7 @@ mat-select {
   padding: 3px 5px 3px 15px;
   border-radius: 20px;
 }
+mat-select.disabled {
+  cursor: no-drop !important;
+  border: 2px solid #d6d6d6;
+}

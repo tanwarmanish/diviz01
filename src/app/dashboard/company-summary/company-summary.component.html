@@ -1,26 +1,71 @@
-<card-navbar title="Summary"></card-navbar>
-<div class="content">
-  <div class="entry" *ngFor="let entry of dataList">
-    <h4>
-      <span>{{ entry?.title }}</span>
-      <span class="smaller">
-        {{ "" | percent: entry.value:entry.total }}% (Total: {{ entry?.total }})
+<!-- <card-navbar title="{{ loadOrder ? 'Lane Details' : 'Summary' }}"></card-navbar> -->
+<ng-container *ngIf="!loadOrder">
+  <div class="content">
+    <div class="entry" *ngFor="let entry of dataList">
+      <h4>
+        <span>{{ entry?.title }}</span>
+        <span class="smaller">
+          {{ "" | percent: entry.value:entry.total }}% (Total:
+          {{ entry?.total }})
+        </span>
+      </h4>
+      <div class="progress">
+        <div
+          class="determinate"
+          style="width: {{ '' | percent: entry.value:entry.total }}%"
+        ></div>
+      </div>
+      <span class="helper-text">
+        <span
+          >{{ entry?.leftLabel }} <b>({{ entry?.value }})</b></span
+        >
+        <span
+          >{{ entry?.rightLabel }}
+          <b>({{ entry?.total - entry?.value }})</b></span
+        >
       </span>
-    </h4>
-    <div class="progress">
-      <div
-        class="determinate"
-        style="width: {{ '' | percent: entry.value:entry.total }}%"
-      ></div>
     </div>
-    <span class="helper-text">
+  </div>
+</ng-container>
+<div class="content" *ngIf="loadOrder">
+  <div class="entry">
+    <h4>Routing</h4>
+    <p
+      *ngFor="let path of paths"
+      [ngClass]="{ highlight: highlightKey == path.path }"
+    >
+      <label>{{ path?.path }}</label>
       <span
-        >{{ entry?.leftLabel }} <b>({{ entry?.value }})</b></span
+        >{{ path?.shipType }} | {{ path?.city }} | {{ path?.key }} |
+        {{ path?.distance }} Miles</span
       >
-      <span
-        >{{ entry?.rightLabel }}
-        <b>({{ entry?.total - entry?.value }})</b></span
-      >
-    </span>
+    </p>
+  </div>
+  <div class="entry">
+    <h4>Cargo Details</h4>
+    <p>
+      <label>Equipment</label>
+      <span>53' PLATE TR</span>
+    </p>
+    <p>
+      <label>Commodity</label>
+      <span>ADHESIVES</span>
+    </p>
+    <p>
+      <label>Temperature</label>
+      <span>ADHESIVES</span>
+    </p>
+    <p>
+      <label>Package Type</label>
+      <span>ADHESIVES</span>
+    </p>
+    <p>
+      <label>Weight</label>
+      <span>ADHESIVES</span>
+    </p>
+    <p>
+      <label>Cargo Value</label>
+      <span>ADHESIVES</span>
+    </p>
   </div>
 </div>

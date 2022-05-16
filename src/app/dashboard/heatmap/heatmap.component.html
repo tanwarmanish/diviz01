@@ -1,4 +1,4 @@
-<card-navbar [title]="tracking ? 'Order' : 'Origin'">
+<card-navbar [title]="'Orders'">
   <div class="input-field">
     <i
       class="material-icons prefix"
@@ -18,9 +18,9 @@
       id="icon_prefix"
       type="text"
       class="validate"
-      maxlength="7"
+      maxlength="15"
       #quoteId
-      placeholder="Quote Id"
+      placeholder="Lane Id"
       [disabled]="tracking"
     />
   </div>
@@ -32,6 +32,7 @@
     ]"
     [dataKeys]="{ key: 'key', value: 'value' }"
     [selectedValue]="activeType"
+    [disabled]="tracking"
     width="115px"
     (onSelectionChange)="onTypeChange($event)"
   >
@@ -45,4 +46,17 @@
     (chartInstance)="chartInstance($event)"
   >
   </highcharts-chart>
+  <p class="path" *ngIf="tracking">
+    <ng-container *ngFor="let p of path; let i = index">
+      <span
+        class="key"
+        (mouseenter)="highlightRoute(p, true)"
+        (mouseout)="highlightRoute(p, false)"
+        >{{ p?.key }}</span
+      >
+      <span class="icon material-symbols-outlined" *ngIf="i != path.length - 1">
+        trending_flat
+      </span>
+    </ng-container>
+  </p>
 </div>

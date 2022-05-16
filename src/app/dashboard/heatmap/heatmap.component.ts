@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HighchartComponent } from 'src/app/shared/components/highchart/highchart.component';
-import { STATES } from './heatmap.const';
+import { STATES, LANE_DETAILS, PATH } from './heatmap.const';
 @Component({
   selector: 'heatmap',
   templateUrl: './heatmap.component.html',
@@ -8,6 +8,7 @@ import { STATES } from './heatmap.const';
 })
 export class HeatmapComponent extends HighchartComponent implements OnInit {
   override chartStyle = 'width: 100%; height: 500px; display: block';
+  path = PATH;
   types: any[] = [
     { key: 'customer', value: 'Customers' },
     { key: 'carrier', value: 'Carriers' },
@@ -37,6 +38,9 @@ export class HeatmapComponent extends HighchartComponent implements OnInit {
     this.colorAxis['trackorder'] = {};
     this.typeKeys = Object.keys(this.seriesData);
     this.initChartOptions();
+    setTimeout(() => {
+      this.loadQuote(1);
+    }, 1000);
   }
 
   initChartOptions() {
@@ -155,9 +159,9 @@ export class HeatmapComponent extends HighchartComponent implements OnInit {
   }
 
   onTypeChange(type: string) {
-    this.activeType = type;
+    type != 'trackorder' && (this.activeType = type);
     this.chartRef.colorAxis[0].update({
-      dataClasses: this.colorAxis[this.activeType],
+      dataClasses: this.colorAxis[type],
     });
     let index = this.typeKeys.indexOf(type);
     this.typeKeys.map((k: any, i: number) => {
@@ -175,67 +179,18 @@ export class HeatmapComponent extends HighchartComponent implements OnInit {
     this.seriesData[key] = this.trackQuote(id);
     this.colorAxis[key] = this.generateColorAxis(key);
     this.onTypeChange(key);
+    this.events.loadLane.next({ details: LANE_DETAILS, state: 'order' });
   }
   closeQuote() {
+    this.events.loadLane.next({ details: {}, state: 'summary' });
     this.tracking = false;
     this.seriesData['trackorder'] = [];
     this.colorAxis['trackorder'] = [];
-    this.onTypeChange('customer');
+    this.onTypeChange(this.activeType);
   }
 
   trackQuote(id: number) {
-    let path: any = [
-      {
-        key: 'ND',
-        title: 'O',
-        src: 'origin',
-      },
-      {
-        key: 'WY',
-        title: 'S1',
-        src: 'stop',
-      },
-      {
-        key: 'CO',
-        title: 'S2',
-        src: 'stop',
-      },
-      {
-        key: 'UT',
-        title: 'S3',
-        src: 'stop',
-      },
-      {
-        key: 'OK',
-        title: 'S4',
-        src: 'stop',
-      },
-      {
-        key: 'LA',
-        title: 'S5',
-        src: 'stop',
-      },
-      {
-        key: 'MS',
-        title: 'S6',
-        src: 'stop',
-      },
-      {
-        key: 'AL',
-        title: 'S7',
-        src: 'stop',
-      },
-      {
-        key: 'GA',
-        title: 'S8',
-        src: 'stop',
-      },
-      {
-        key: 'FL',
-        title: 'D',
-        src: 'dest',
-      },
-    ];
+    let path: any = PATH;
     const colors: any = {
       rest: '#000',
       origin: '#2ecc71',
@@ -244,5 +199,10 @@ export class HeatmapComponent extends HighchartComponent implements OnInit {
     };
     path = path.map((p: any) => Object.assign(p, { color: colors[p.src] }));
     return this.dataset.generateHeatmapData(STATES, path);
+  }
+
+  highlightRoute(entry: any, focus = false) {
+    let path = entry.path;
+    this.events.highlightRoute.next(focus && path);
   }
 }

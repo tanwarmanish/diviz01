@@ -9,6 +9,7 @@ import Drilldown from 'highcharts/modules/drilldown';
 import highChartsTilemap from 'highcharts/modules/tilemap';
 import highChartsHeatmap from 'highcharts/modules/heatmap';
 import highchartsMore from 'highcharts/highcharts-more';
+import { EventsService } from '../../services/events.service';
 
 /* init */
 Funnel(Highcharts);
@@ -45,7 +46,11 @@ export class HighchartComponent {
 
   public chartRef: any = null;
 
-  constructor(public cd: ChangeDetectorRef, public dataset: DatasetService) {}
+  constructor(
+    public cd: ChangeDetectorRef,
+    public dataset: DatasetService,
+    public events: EventsService
+  ) {}
 
   public onPeriodChange(period: string) {}
 

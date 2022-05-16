@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HighchartComponent } from 'src/app/shared/components/highchart/highchart.component';
-
+import { PATH } from './../heatmap/heatmap.const';
 @Component({
   selector: 'company-summary',
   templateUrl: './company-summary.component.html',
@@ -47,5 +47,22 @@ export class CompanySummaryComponent
       rightLabel: 'In Person',
     },
   ];
+  paths = PATH;
+  loadOrder: boolean = false;
+  orderDetails = [];
+  highlightKey: any = null;
   ngOnInit(): void {}
+
+  ngAfterViewInit() {
+    this.events.loadLane.subscribe((order: any) => {
+      let { details, state } = order;
+      console.log(details);
+      this.loadOrder = state == 'order';
+    });
+
+    this.events.highlightRoute.subscribe((key) => {
+      console.log(key);
+      this.highlightKey = key;
+    });
+  }
 }

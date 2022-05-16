@@ -26,6 +26,7 @@ export class SelectDropdownComponent implements OnInit {
   @Input() selectedValue: string = '';
   @Input() selectedValueLabel: string = '';
   @Input() width: string = '';
+  @Input() disabled: boolean = false;
   @Output() onSelectionChange = new EventEmitter();
 
   constructor() {}
