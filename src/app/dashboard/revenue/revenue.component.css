@@ -47,3 +47,25 @@
   display: flex;
   justify-content: space-around;
 }
+
+.color-punch {
+  width: 15px;
+  height: 15px;
+  background-color: #efcac2;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  border-radius: 100%;
+}
+
+.revenue label .lever,
+.revenue label input[type="checkbox"]:checked + .lever,
+.revenue label input[type="checkbox"]:checked + .lever:after {
+  background-color: #cfddea;
+}
+
+.expense label .lever,
+.expense label input[type="checkbox"]:checked + .lever,
+.expense label input[type="checkbox"]:checked + .lever:after {
+  background-color: #efcac2;
+}

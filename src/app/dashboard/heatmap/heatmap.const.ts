@@ -574,7 +574,7 @@ export const PATH = [
   },
   {
     key: 'MS',
-    title: 'S6',
+    title: 'D',
     src: 'dest',
     path: 'Destination',
     shipType: 'Consignee',

@@ -11,8 +11,8 @@ export class QuotesStatusComponent
   implements OnInit
 {
   dataList: any = [];
-  override chartType = 'column';
-  override chartTypes = 'column|stacked|pie';
+  override chartType = 'pie';
+  override chartTypes = 'pie|column|stacked';
 
   statues = ['Quoted', 'Pending', 'Awarded', 'Lost'];
   quotesTypes = ['LTL', 'FTL', 'IM', 'LCL'];

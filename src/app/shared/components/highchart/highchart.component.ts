@@ -106,7 +106,7 @@ export class HighchartComponent {
       if (seriesObj.hasOwnProperty(s.key)) {
         let data = seriesObj[s.key];
         s.data = data;
-        s.visible = !hidden[s.key];
+        s.key.includes('avg') && (s.visible = !hidden[s.key]);
       }
     });
     this.updateChartOptions({ series });

@@ -30,6 +30,8 @@ input:focus {
 }
 
 .path {
+  position: absolute;
+  bottom: 15px;
   width: 100%;
   padding: 0px 50px;
   margin: 0 auto;
@@ -38,18 +40,26 @@ input:focus {
   cursor: pointer !important;
 }
 .path span.key {
-  line-height: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  line-height: 40px;
   letter-spacing: 2px;
   padding: 0 5px;
   transition: 0.3s ease-in-out;
+  text-align: center;
+  margin: 0 5px;
+  border: 1px solid white;
 }
 
 .path span.key:hover {
-  font-size: 18px;
+  box-shadow: 0 8px 17px 2px rgb(0 0 0 / 14%), 0 3px 14px 2px rgb(0 0 0 / 12%),
+    0 5px 5px -3px rgb(0 0 0 / 20%) !important;
   transition: 0.3s ease-in-out;
 }
 
 .path .icon {
   font-size: 18px;
-  line-height: 24px;
+  line-height: 40px;
+  font-weight: bold;
 }

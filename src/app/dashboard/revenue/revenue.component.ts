@@ -22,6 +22,7 @@ export class RevenueComponent extends HighchartComponent implements OnInit {
       title: 'Average Revenue',
       period: 7,
       checked: false,
+      color: '#CFDDEA',
     },
     {
       key: 'avgexpense',
@@ -46,7 +47,7 @@ export class RevenueComponent extends HighchartComponent implements OnInit {
       xAxis: {
         type: 'datetime',
         labels: {
-          format: '{value:%d-%m-%Y}',
+          format: '{value:%d %b<br>%Y}',
         },
         crosshair: {
           zIndex: 5,
@@ -56,6 +57,9 @@ export class RevenueComponent extends HighchartComponent implements OnInit {
         },
       },
       yAxis: {
+        title: {
+          text: '',
+        },
         crosshair: {
           zIndex: 5,
           dashStyle: 'dot',
@@ -73,6 +77,7 @@ export class RevenueComponent extends HighchartComponent implements OnInit {
           enableMouseTracking: false,
           showInLegend: false,
           visible: false,
+          color: '#c23616',
         },
         {
           name: 'Average Revenue',
@@ -83,6 +88,7 @@ export class RevenueComponent extends HighchartComponent implements OnInit {
           enableMouseTracking: false,
           showInLegend: false,
           visible: false,
+          color: '#487eb0',
         },
         {
           name: 'Revenue',

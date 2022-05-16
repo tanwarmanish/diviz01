@@ -24,6 +24,7 @@
     class="period-controls"
     *ngFor="let option of averagesList; let i = index"
   >
+    <!-- <span class="color-punch" [style.backgroundColor]="option.color"></span> -->
     <label>{{ option?.title }}</label>
     <div>
       <input
@@ -32,14 +33,14 @@
         [(ngModel)]="option.period"
         [disabled]="option.checked"
       />
-      <div class="switch">
+      <div class="switch {{ option.src }}">
         <label>
           <input
             type="checkbox"
             [checked]="option.checked"
             (change)="toggleAverages(option, i)"
           />
-          <span class="lever"> </span>
+          <span class="lever revenue"> </span>
         </label>
       </div>
     </div>

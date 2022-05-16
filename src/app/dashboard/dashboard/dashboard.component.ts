@@ -7,7 +7,7 @@ import { EventsService } from 'src/app/shared/services/events.service';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  summaryState = 'order';
+  summaryState = 'summary';
   constructor(public events: EventsService) {}
 
   ngOnInit(): void {}
