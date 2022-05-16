@@ -38,9 +38,6 @@ export class HeatmapComponent extends HighchartComponent implements OnInit {
     this.colorAxis['trackorder'] = {};
     this.typeKeys = Object.keys(this.seriesData);
     this.initChartOptions();
-    setTimeout(() => {
-      this.loadQuote(1);
-    }, 1000);
   }
 
   initChartOptions() {

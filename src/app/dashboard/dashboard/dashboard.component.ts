@@ -15,8 +15,9 @@ export class DashboardComponent implements OnInit {
   ngAfterViewInit() {
     this.events.loadLane.subscribe((order: any) => {
       let { state } = order;
+      console.log(order);
+      // FT1201202121
       this.summaryState = state;
-      console.log(this.summaryState);
     });
   }
 }
