@@ -16,8 +16,21 @@
   </structure>
 
   <!-- heatmap  -->
-  <structure childClass="col m8|col m4">
-    <heatmap slot="1"></heatmap>
-    <company-summary slot="2"></company-summary>
-  </structure>
+
+  <div
+    class="row"
+    [ngStyle]="{ display: summaryState != 'order' ? 'flex' : '' }"
+  >
+    <div class="col m8">
+      <div class="card">
+        <heatmap></heatmap>
+      </div>
+    </div>
+    <div class="col m4">
+      <div class="card" *ngIf="summaryState == 'summary'">
+        <company-summary></company-summary>
+      </div>
+      <order-route *ngIf="summaryState == 'order'"></order-route>
+    </div>
+  </div>
 </div>

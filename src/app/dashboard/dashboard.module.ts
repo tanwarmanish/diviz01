@@ -12,6 +12,7 @@ import { SummaryComponent } from './summary/summary.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeatmapComponent } from './heatmap/heatmap.component';
 import { CompanySummaryComponent } from './company-summary/company-summary.component';
+import { OrderRouteComponent } from './order-route/order-route.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { CompanySummaryComponent } from './company-summary/company-summary.compo
     SummaryComponent,
     HeatmapComponent,
     CompanySummaryComponent,
+    OrderRouteComponent,
   ],
   imports: [
     CommonModule,

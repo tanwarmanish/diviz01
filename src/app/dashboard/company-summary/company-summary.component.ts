@@ -6,10 +6,7 @@ import { PATH } from './../heatmap/heatmap.const';
   templateUrl: './company-summary.component.html',
   styleUrls: ['./company-summary.component.css'],
 })
-export class CompanySummaryComponent
-  extends HighchartComponent
-  implements OnInit
-{
+export class CompanySummaryComponent implements OnInit {
   dataList: any = [
     {
       title: 'Notes',
@@ -47,22 +44,6 @@ export class CompanySummaryComponent
       rightLabel: 'In Person',
     },
   ];
-  paths = PATH;
-  loadOrder: boolean = false;
-  orderDetails = [];
-  highlightKey: any = null;
+
   ngOnInit(): void {}
-
-  ngAfterViewInit() {
-    this.events.loadLane.subscribe((order: any) => {
-      let { details, state } = order;
-      console.log(details);
-      this.loadOrder = state == 'order';
-    });
-
-    this.events.highlightRoute.subscribe((key) => {
-      console.log(key);
-      this.highlightKey = key;
-    });
-  }
 }

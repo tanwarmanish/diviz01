@@ -1,6 +1,6 @@
 <div [ngClass]="parentClass" class="group">
   <div [ngClass]="child" *ngFor="let child of children; let i = index">
-    <div class="card">
+    <div class="card" *ngIf="!child.includes('nocard')">
       <ng-container *ngIf="children.length == 1">
         <ng-content></ng-content>
       </ng-container>
@@ -14,9 +14,6 @@
         <ng-content select="[slot=3]"></ng-content>
       </ng-container>
     </div>
+    <ng-content select="[slot=4]"></ng-content>
   </div>
 </div>
-
-<!-- <ng-template #ngContent>
-  <ng-content select="[slot=first]"></ng-content>
-</ng-template> -->

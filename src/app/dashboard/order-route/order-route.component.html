@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col m12">
+    <div class="entry card">
+      <h4>Routing</h4>
+      <p
+        *ngFor="let path of paths"
+        [ngClass]="{ highlight: highlightKey == path.path }"
+      >
+        <label>{{ path?.path }}</label>
+        <span
+          >{{ path?.shipType }} | {{ path?.city }} | {{ path?.key }} |
+          {{ path?.distance }} Miles</span
+        >
+      </p>
+    </div>
+  </div>
+  <div class="col m12" style="margin-top: 5px">
+    <div class="entry card">
+      <h4>Cargo Details</h4>
+      <p>
+        <label>Equipment</label>
+        <span>53' PLATE TR</span>
+      </p>
+      <p>
+        <label>Commodity</label>
+        <span>ADHESIVES</span>
+      </p>
+      <p>
+        <label>Temperature</label>
+        <span>ADHESIVES</span>
+      </p>
+      <p>
+        <label>Package Type</label>
+        <span>ADHESIVES</span>
+      </p>
+      <p>
+        <label>Weight</label>
+        <span>ADHESIVES</span>
+      </p>
+      <p>
+        <label>Cargo Value</label>
+        <span>ADHESIVES</span>
+      </p>
+    </div>
+  </div>
+</div>
