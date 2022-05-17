@@ -148,7 +148,7 @@ export class HeatmapComponent extends HighchartComponent implements OnInit {
         from: Number.NEGATIVE_INFINITY,
         to: Number.POSITIVE_INFINITY,
         name: '',
-        color: '#000',
+        color: '#ecf0f1',
       };
       return payload;
     });
@@ -192,7 +192,7 @@ export class HeatmapComponent extends HighchartComponent implements OnInit {
       rest: '#000',
       origin: '#2ecc71',
       stop: '#1abc9c',
-      dest: '#e74c3c',
+      dest: '#d63031',
     };
     path = path.map((p: any) => Object.assign(p, { color: colors[p.src] }));
     return this.dataset.generateHeatmapData(STATES, path);
