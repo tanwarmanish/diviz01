@@ -13,7 +13,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeatmapComponent } from './heatmap/heatmap.component';
 import { CompanySummaryComponent } from './company-summary/company-summary.component';
 import { OrderRouteComponent } from './order-route/order-route.component';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -33,6 +36,10 @@ import { OrderRouteComponent } from './order-route/order-route.component';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
 })
 export class DashboardModule {}

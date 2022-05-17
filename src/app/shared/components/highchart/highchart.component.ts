@@ -184,7 +184,7 @@ export class HighchartComponent {
     this.chartRef && this.chartRef.drillUp();
   }
 
-  axisExtremes(min = null, max = null, revert = false) {
+  axisExtremes(min: any = null, max: any = null, revert = false) {
     this.chartRef && this.chartRef.xAxis[0].setExtremes(min, max);
   }
 

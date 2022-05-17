@@ -16,6 +16,22 @@
     [style]="chartStyle"
     (chartInstance)="chartInstance($event)"
   ></highcharts-chart>
+  <div class="goto">
+    <a mat-raised-button class="btn-floating" (click)="picker.open()">
+      <i class="material-icons">search</i>
+    </a>
+    <mat-form-field appearance="fill">
+      <input
+        matInput
+        [matDatepicker]="picker"
+        [min]="date('min')"
+        [max]="date('max')"
+        [value]="date('value')"
+        (dateChange)="goToDate($event.value)"
+      />
+      <mat-datepicker (opened)="picker.select(null)" #picker></mat-datepicker>
+    </mat-form-field>
+  </div>
 </div>
 
 <!-- period controls  -->

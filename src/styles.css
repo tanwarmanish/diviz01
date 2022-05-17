@@ -86,3 +86,13 @@ input:disabled {
   width: 0px;
 }
 
+button:focus {
+  background-color: white !important;
+}
+button:active{
+  background-color:white !important;
+}
+
+.mat-calendar-table-header th{
+  padding:0 !important;
+}

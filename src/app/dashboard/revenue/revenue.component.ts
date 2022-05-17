@@ -1,4 +1,6 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { MatDatepicker } from '@angular/material/datepicker';
+import * as moment from 'moment';
 import { HighchartComponent } from 'src/app/shared/components/highchart/highchart.component';
 import { DatasetService } from 'src/app/shared/services/faker/dataset.service';
 
@@ -14,6 +16,13 @@ export class RevenueComponent extends HighchartComponent implements OnInit {
   override chartPeriod = 'day';
   override chartTypes = 'column|spline';
   override chartPeriods = 'day|week|month';
+  _date: any = {
+    min: null,
+    max: null,
+  };
+  date(key: string) {
+    return this._date[key];
+  }
 
   averagesList: any[] = [
     {
@@ -34,7 +43,10 @@ export class RevenueComponent extends HighchartComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.dataList = this.dataset.generateRevenueExpense(365);
+    let days = 1000;
+    this._date.max = new Date(moment().format());
+    this._date.min = new Date(moment().subtract(days, 'days').format());
+    this.dataList = this.dataset.generateRevenueExpense(days);
     this.initChartOptions();
   }
 
@@ -183,5 +195,13 @@ export class RevenueComponent extends HighchartComponent implements OnInit {
     }
     // update series
     this.updateSeries(avgSeriesObj, avgHiddenObj);
+  }
+
+  goToDate(value: any) {
+    if (!value) return;
+    let date = moment(value);
+    let maxValue = date.valueOf();
+    let minValue = date.subtract(15, 'days').valueOf();
+    this.axisExtremes(minValue, maxValue);
   }
 }
