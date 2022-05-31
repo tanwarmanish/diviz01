@@ -8,6 +8,16 @@ const routes: Routes = [
       import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
   },
   {
+    path: 'warehouse',
+    loadChildren: () =>
+      import('./warehouse/warehouse.module').then((m) => m.WarehouseModule),
+  },
+  {
+    path: 'freight',
+    loadChildren: () =>
+      import('./warehouse/warehouse.module').then((m) => m.WarehouseModule),
+  },
+  {
     path: '**',
     pathMatch: 'full',
     redirectTo: 'dashboard',
